@@ -32,6 +32,7 @@ for genre_info in genre_list:
     }
     all_genre_list.append(genre)    
 
+# 출력할 페이지의 갯수 입력
 amount_of_page = 10
 for page in range(1, 1 + amount_of_page):
     ALL_MOVIE_PATH = '/discover/movie'
