@@ -20,6 +20,7 @@ export default {
   computed: {
     movies() {
       return this.$store.state.movies
+      // 로그인한 유저의 wish_list 데이터를 가져와서 해당 id의 영화 목록 생성
     }
   }
 }

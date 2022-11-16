@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4>CommentList</h4>
-    <MovieListItem
+    <CommentListItem
       v-for="comment in commnets"
       :key="comment.id"
       :comment="comment"

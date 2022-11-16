@@ -1,7 +1,6 @@
 <template>
   <div class="movie">
-    <h1>This is main page.</h1>
-    <h3>Spoilers</h3>
+    <h1>Spoilers</h1>
     <MovieList/>
   </div>
 </template>

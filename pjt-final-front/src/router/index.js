@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MovieView from '@/views/MovieView'
-import SignUpView from '@/views/SignUpView'
-import LogInView from '@/views/LogInView'
+// import SignUpView from '@/views/SignUpView'
+// import LogInView from '@/views/LogInView'
 
 Vue.use(VueRouter)
 
@@ -13,13 +13,21 @@ const routes = [
     component: MovieView
   },
 
-  {
-    path: '/profile/:id/:username',
-    // 각 유저별 username을 넣은 프로필 페이지로 만들어야 함
-    // 미인증 시 라우터가드로 로그인 페이지로 이동시킬 것.
-    name: 'ProfileView',
-    component: () => import('../views/ProfileView.vue')
-  },
+  // {
+  //   path: '/profile/:id/:username',
+  //   // 미인증 시 라우터가드로 로그인 페이지로 이동시킬 것.
+  //   name: 'ProfileView',
+  //   component: () => import('../views/ProfileView.vue'),
+  //   beforeEnter(to,from,next) {
+  //     //로그인 여부 확인하는 방법 확인해두기
+  //     const login = true
+  //     if (login === false) {
+  //       next({name:'LogInView'})
+  //     } else {
+  //       next()
+  //     }
+  //   }
+  // },
 
   {
     path: '/moviedetail/:id',
@@ -33,17 +41,17 @@ const routes = [
     component: () => import('../views/ActorView.vue')
   },
 
-  {
-    path: '/signup',
-    name: 'SignUpView',
-    component: SignUpView
-  },
+  // {
+  //   path: '/signup',
+  //   name: 'SignUpView',
+  //   component: SignUpView
+  // },
 
-  {
-    path: '/login',
-    name: 'LogInView',
-    component: LogInView
-  },
+  // {
+  //   path: '/login',
+  //   name: 'LogInView',
+  //   component: LogInView
+  // },
 ]
 
 const router = new VueRouter({

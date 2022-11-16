@@ -5,6 +5,7 @@
       <router-link :to="{ name: 'MovieDetailView', params: { id: movie.id } }">
         [DETAIL]
       </router-link>
+      
       <hr>
     </div>
   </template>
