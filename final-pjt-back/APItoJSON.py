@@ -16,8 +16,8 @@ ALL_GENRE_PATH = '/genre/movie/list'
 genre_response = requests.get(
     BASE_URL + ALL_GENRE_PATH,
     params = {
-        'api_key' : API_KEY,
-        'language' : 'ko',
+        'api_key': API_KEY,
+        'language': 'ko',
     }    
 ).json()
 
@@ -39,10 +39,10 @@ for page in range(1, 1 + amount_of_page):
     list_response = requests.get(
         BASE_URL + ALL_MOVIE_PATH,
         params = {
-            'api_key' : API_KEY,
-            'language' : 'ko',
-            'region' : 'KR',
-            'page' : page,
+            'api_key': API_KEY,
+            'language': 'ko',
+            'region': 'KR',
+            'page': page,
         } 
     ).json()
     movie_list = list_response.get('results')
@@ -57,8 +57,8 @@ for page in range(1, 1 + amount_of_page):
         detail_response = requests.get(
             BASE_URL + MOVIE_DETAIL_PATH,
             params = {
-                'api_key' : API_KEY,
-                'language' : 'ko',
+                'api_key': API_KEY,
+                'language': 'ko',
             } 
         ).json()
         movie_title = detail_response.get('title')
@@ -81,8 +81,8 @@ for page in range(1, 1 + amount_of_page):
         credits_response = requests.get(
             BASE_URL + MOVIE_CREDITS_PATH,
             params = {
-                'api_key' : API_KEY,
-                'language' : 'ko',
+                'api_key': API_KEY,
+                'language': 'ko',
             } 
         ).json()
         
@@ -103,6 +103,24 @@ for page in range(1, 1 + amount_of_page):
             all_actor_list.append(actor)
 
 
+        MOVIE_VIDEO_PATH = '/movie/{}/videos'.format(movie_id)
+
+        video_response = requests.get(
+            BASE_URL + MOVIE_VIDEO_PATH,
+            params= {
+                'api_key': API_KEY,
+                'language': 'ko',
+            }
+        ).json()
+
+        video_list = video_response.get('results')
+        for video_info in video_list:
+            if not index:
+                print(video_info.get('key'))
+            if video_info.get('site') == 'YouTube':
+                trailer_key = video_info.get('key')
+
+
         movie = {
             'model': 'movies.movie',
             # 'pk': page * 20 + index,
@@ -112,7 +130,7 @@ for page in range(1, 1 + amount_of_page):
                 'movie_title': movie_title,
                 'date_opened': date_opened,
                 'overview': overview,
-                # 'trailer_key': trailer_key,
+                'trailer_key': trailer_key,
                 'poster_path': poster_path,
                 'starring': starring,
                 'genres_of_movie': genres_of_movie,

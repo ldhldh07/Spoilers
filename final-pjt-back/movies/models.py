@@ -14,7 +14,7 @@ class Movie(models.Model):
     movie_title = models.TextField()
     date_opened = models.DateField()
     overview = models.TextField()
-    # trailer_key = models.TextField()
+    trailer_key = models.TextField()
     review_searched = models.TextField()
     poster_path = models.CharField(max_length=200)
     starring = models.ManyToManyField(Actor, related_name='filmography')
