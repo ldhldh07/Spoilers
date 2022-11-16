@@ -2,14 +2,17 @@ from django.db import models
 
 # Create your models here.
 class Actor(models.Model):
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
 
 class Genre(models.Model):
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
 
 class Movie(models.Model):
+    id = models.IntegerField(primary_key=True)
     movie_title = models.TextField()
-    date_opened = models.DateTimeField()
+    date_opened = models.DateField()
     overview = models.TextField()
     # trailer_key = models.TextField()
     review_searched = models.TextField()
