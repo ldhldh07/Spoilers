@@ -32,8 +32,8 @@ for genre_info in genre_list:
     }
     all_genre_list.append(genre)    
 
-
-for page in range(1, 501):
+amount_of_page = 10
+for page in range(1, 1 + amount_of_page):
     ALL_MOVIE_PATH = '/discover/movie'
     list_response = requests.get(
         BASE_URL + ALL_MOVIE_PATH,
@@ -62,12 +62,13 @@ for page in range(1, 501):
         ).json()
         movie_title = detail_response.get('title')
         overview = detail_response.get('overview')
+        poster_path = detail_response.get('poster_path')
     
         # if detail_response.get('video') != 'false':
         #     trailer_key = detail_response.get('video')
 
         genres_info = detail_response.get('genres')
-        
+
         genres_of_movie = []
         for genre_info in genres_info:
             genre_id = genre_info.get('id')
@@ -111,6 +112,7 @@ for page in range(1, 501):
                 'date_opened': date_opened,
                 'overview': overview,
                 # 'trailer_key': trailer_key,
+                'poster_path': poster_path,
                 'starring': starring,
                 'genres_of_movie': genres_of_movie,
             }
@@ -119,9 +121,9 @@ for page in range(1, 501):
         all_movie_list.append(movie)
 
 
-    with open('./movies/fixtures/genres.json', 'w', encoding='UTF-8') as outfile:
-        json.dump(all_genre_list, outfile, indent=4, ensure_ascii=False)
-    with open('./movies/fixtures/actors.json', 'w', encoding='UTF-8') as outfile:
-        json.dump(all_actor_list, outfile, indent=4, ensure_ascii=False)
-    with open('./movies/fixtures/movies.json', 'w', encoding='UTF-8') as outfile:
-        json.dump(all_movie_list, outfile, indent=4, ensure_ascii=False)
+with open('./movies/fixtures/genres.json', 'w', encoding='UTF-8') as outfile:
+    json.dump(all_genre_list, outfile, indent=4, ensure_ascii=False)
+with open('./movies/fixtures/actors.json', 'w', encoding='UTF-8') as outfile:
+    json.dump(all_actor_list, outfile, indent=4, ensure_ascii=False)
+with open('./movies/fixtures/movies.json', 'w', encoding='UTF-8') as outfile:
+    json.dump(all_movie_list, outfile, indent=4, ensure_ascii=False)

@@ -16,6 +16,7 @@ class Movie(models.Model):
     overview = models.TextField()
     # trailer_key = models.TextField()
     review_searched = models.TextField()
+    poster_path = models.CharField(max_length=200)
     starring = models.ManyToManyField(Actor, related_name='filmography')
     genres_of_movie = models.ManyToManyField(Genre, related_name='movies_of_genre')
 
