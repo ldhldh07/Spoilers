@@ -1,17 +1,24 @@
 <template>
   <div class="Actor">
     <h1>This is Actor page</h1>
-    <MovieList/>
+    <ActorMovieList 
+      :genre="actor"
+    />
   </div>
 </template>
 
 <script>
-import MovieList from '@/components/MovieList'
+import ActorMovieList from '@/components/ActorMovieList'
 
 export default {
   name: 'ActorView',
   components: {
-    MovieList,
+    ActorMovieList,
+  },
+  data: function() {
+    return {
+      actor: this.$router.params.id
+    }
   }
 }
 </script>
