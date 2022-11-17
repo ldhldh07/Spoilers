@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MovieView from '@/views/MovieView'
-// import SignUpView from '@/views/SignUpView'
+import SignUpView from '@/views/SignUpView'
 // import LogInView from '@/views/LogInView'
 
 Vue.use(VueRouter)
@@ -41,11 +41,11 @@ const routes = [
     component: () => import('../views/ActorView.vue')
   },
 
-  // {
-  //   path: '/signup',
-  //   name: 'SignUpView',
-  //   component: SignUpView
-  // },
+  {
+    path: '/signup',
+    name: 'SignUpView',
+    component: SignUpView
+  },
 
   // {
   //   path: '/login',
