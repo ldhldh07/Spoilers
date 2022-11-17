@@ -21,6 +21,9 @@ export default {
     movies() {
       return this.$store.state.movies
     }
+  },
+  props:{
+    genre
   }
 }
 </script>

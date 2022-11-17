@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import PopularView from '@/views/PopularView'
-import GenreView from '@/views/GenreView'
+import GenreSelectView from '@/views/GenreSelectView'
+import NewestView from '@/views/NewestView'
 // import SignUpView from '@/views/SignUpView'
 // import LogInView from '@/views/LogInView'
 
@@ -15,9 +16,21 @@ const routes = [
   },
 
   {
+    path: '/new',
+    name: 'NewestView',
+    component: NewestView
+  },
+
+  {
+    path: '/genre',
+    name: 'GenreSelectView',
+    component: GenreSelectView
+  },
+
+  {
     path: '/genre/:name',
     name: 'GenreView',
-    component: GenreView
+    component: () => import('../views/GenreView.vue')
   },
 
   // {

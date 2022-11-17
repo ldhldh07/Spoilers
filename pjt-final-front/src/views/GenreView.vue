@@ -1,7 +1,9 @@
 <template>
   <div class="genre">
-    <h1>Spoilers</h1>
-    <MovieList/>
+    <h1>{{genre}} 영화</h1>
+    <MovieList
+      :genre="genre"
+    />
   </div>
 </template>
 
@@ -13,5 +15,10 @@ export default {
   components: {
     MovieList,
   },
+  data: function() {
+    return {
+      genre: this.$route.params.name
+    }
+  }
 }
 </script>

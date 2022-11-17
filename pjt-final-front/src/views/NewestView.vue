@@ -1,8 +1,8 @@
 <template>
   <div class="popular">
-    <h1>인기순 보기</h1>
+    <h1>최신순 보기</h1>
     <MovieList
-      :genre="popular"
+      :genre="newest"
     />
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {
   },
   data: function() {
     return {
-      popular: 10
+      newest: 10
       // 타 장르값과 겹치지 않도록 한다.
     }
   }
