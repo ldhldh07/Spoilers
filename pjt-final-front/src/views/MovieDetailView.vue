@@ -51,12 +51,20 @@ export default {
   data() {
     return {
       movie: null,
+      poster: null,
+      trailerSrc: null,
+      videos: Array,
+      selectedVideo1 : null,
+      selectedVideo2 : null,
     }
   },
   computed: {
     comments() {
       return this.movie?.comment_set
-    }
+    },
+    videoSrc() {
+      return `https://youtube.com/embed/${this.selectedVideo1}`
+    } 
   },
   created() {
     this.getMovieDetail()
@@ -99,21 +107,6 @@ export default {
         })
     }
   },
-  data() {
-    return {
-      movie: null,
-      poster: null,
-      trailerSrc: null,
-      videos: Array,
-      selectedVideo1 : null,
-      selectedVideo2 : null,
-    }
-  },
-  computed: {
-    videoSrc() {
-      return `https://youtube.com/embed/${this.selectedVideo1}`
-    } 
-  }
 }
 
 // array로 갖고와서 여러개 노출시키기
