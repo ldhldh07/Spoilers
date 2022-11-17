@@ -10,7 +10,8 @@
     <p>코멘트</p>
     <CommentList
       :movieId = 'movie?.id'
-      :commentList = 'movie?.comment_set'
+      :comments = comments
+      @update-comment-list="getMovieDetail"
       />
   </div>
 </template>
@@ -31,10 +32,12 @@ export default {
       movie: null,
     }
   },
-  created() {
-    this.getMovieDetail()
+  computed: {
+    comments() {
+      return this.movie?.comment_set
+    }
   },
-  updated() {
+  created() {
     this.getMovieDetail()
   },
   methods: {

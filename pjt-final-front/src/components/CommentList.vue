@@ -5,6 +5,7 @@
       v-for="comment in comments"
       :key="comment.id"
       :comment="comment"
+      @update-comment-list="updateCommentList"
     />
     <p>댓글 작성</p>
     <form @submit.prevent="createComment">
@@ -32,7 +33,7 @@ const API_URL = 'http://127.0.0.1:8000'
 export default {
   name:'CommentList',
   props:{
-    commentList : Array,
+    comments : Array,
     movieId : Number,
   },
   components : {
@@ -43,11 +44,6 @@ export default {
       title: null,
       content: null,
     }
-  },
-  computed: {
-    comments() {
-      return this.commentList
-    },
   },
   methods: {
     createComment() {
@@ -69,12 +65,17 @@ export default {
         //   Authorization: `Token ${this.$store.state.token}`
         // },
       })
-        .then((response) => {
-          console.log(response)
+        .then(() => {
+          this.title = null
+          this.content = null
+          this.$emit('update-comment-list')
         })
         .catch((error) => {
           console.log(error)
         })
+    },
+    updateCommentList() {
+      this.$emit('update-comment-list')
     }
   }
 }

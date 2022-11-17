@@ -111,18 +111,35 @@ for page in range(1, 1 + amount_of_page):
         # VIDEO API 요청
         MOVIE_VIDEO_PATH = '/movie/{}/videos'.format(movie_id)
 
-        video_response = requests.get(
+        video_ko_response = requests.get(
             BASE_URL + MOVIE_VIDEO_PATH,
             params= {
                 'api_key': API_KEY,
                 'language': 'ko',
             }
         ).json()
+        
 
-        video_list = video_response.get('results')
-        for video_info in video_list:
-            if video_info.get('site') == 'YouTube':
-                trailer_key = video_info.get('key')
+
+        trailer_key = ''
+        video_ko_list = video_ko_response.get('results')
+
+        if video_ko_list:
+            for video_ko_info in video_ko_list:
+                if video_ko_info.get('site') == 'YouTube':
+                    trailer_key = video_ko_info.get('key')
+        else:
+            video_en_response = requests.get(
+                BASE_URL + MOVIE_VIDEO_PATH,
+                params= {
+                    'api_key': API_KEY,
+                    'language': 'en',
+                }
+            ).json()
+            video_en_list = video_en_response.get('results')
+            for video_en_info in video_en_list:
+                if video_en_info.get('site') == 'YouTube':
+                    trailer_key = video_en_info.get('key')
 
 
         # 전체 영화, 개별 영화, casts, video API 요청해서 얻어온 데이터들 object화 해서 전체 리스트 담기

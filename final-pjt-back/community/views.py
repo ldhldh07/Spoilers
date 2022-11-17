@@ -17,3 +17,16 @@ def comment_create(request, movie_pk):
         # serialzer.save(movie=movie, user=request.user)
         serialzer.save(movie=movie)
         return Response(serialzer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['PUT', 'DELETE'])
+def comment_update(request, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    
+    if request.method == 'DELETE':
+        comment.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    # elif request.method == 'PUT':
+    #     serializer = CommentSerializer(comment, data=request.data)
+    #     if serializer.is_valid(raise_exception=True):
+    #         serializer.save()
+    #         return Response(serializer.data)
