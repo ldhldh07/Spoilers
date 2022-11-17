@@ -25,7 +25,6 @@ export default {
   },
   props:{
     isNew: Boolean,
-    isPopular: Boolean
   }
 }
 </script>

@@ -2,8 +2,7 @@
   <div class="popular">
     <h1>인기순 보기</h1>
     <MovieList
-      isNew="false"
-      isPopular="true"
+      :isNew="isNew"
     />
   </div>
 </template>
@@ -18,6 +17,11 @@ export default {
   },
   created() {
     this.getMovies()
+  },
+  data: function() {
+    return{
+      isNew: false
+    }
   },
   methods: {
     getMovies() {
