@@ -13,19 +13,19 @@
 import MovieListItem from '@/components/MovieListItem.vue'
 
 export default {
-  name:'MovieList',
+  name:'GenreMovieList',
   components : {
     MovieListItem
   },
   computed: {
     movies() {
       const array = this.$store.state.movies
-      return array
+      const result = array.filter(movie => movie.genres_of_movie.includes(this.genre))
+      return result
     }
   },
   props:{
-    isNew: Boolean,
-    isPopular: Boolean
+    genre: String
   }
 }
 </script>

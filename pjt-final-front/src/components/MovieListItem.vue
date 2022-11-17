@@ -1,12 +1,9 @@
 <template>
     <div>
-      <h5>{{ movie.id }}</h5>
-      <p>{{ movie.movie_title }}</p>
       <router-link :to="{ name: 'MovieDetailView', params: { id: movie.id } }">
-        [DETAIL]
+        <img src="movie.poster_path" alt="movie-poster">
+        <p>{{ movie.movie_title }}</p>  
       </router-link>
-      
-      <hr>
     </div>
   </template>
   

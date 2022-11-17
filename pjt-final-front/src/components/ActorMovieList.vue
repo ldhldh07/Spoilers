@@ -19,13 +19,11 @@ export default {
   },
   computed: {
     movies() {
-      const array = this.$store.state.movies
-      return array
+      return this.$store.state.movies
     }
   },
   props:{
-    isNew: Boolean,
-    isPopular: Boolean
+    actor: Number
   }
 }
 </script>

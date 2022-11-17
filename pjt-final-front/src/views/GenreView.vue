@@ -1,19 +1,19 @@
 <template>
   <div class="genre">
     <h1>{{genre}} 영화</h1>
-    <MovieList
+    <GenreMovieList
       :genre="genre"
     />
   </div>
 </template>
 
 <script>
-import MovieList from '@/components/MovieList'
+import GenreMovieList from '@/components/GenreMovieList'
 
 export default {
   name: 'GenreView',
   components: {
-    MovieList,
+    GenreMovieList,
   },
   data: function() {
     return {
