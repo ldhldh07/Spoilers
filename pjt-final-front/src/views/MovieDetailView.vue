@@ -8,8 +8,9 @@
     <p>트레일러</p>
     <p>리뷰영상</p>
     <p>코멘트</p>
-    {{comments}}
-    <CommentList/>
+    <CommentList
+      :movieId = 'movie?.id'
+      />
   </div>
 </template>
 
@@ -27,7 +28,6 @@ export default {
   data() {
     return {
       movie: null,
-      comments: null
     }
   },
   created() {
@@ -37,12 +37,11 @@ export default {
     getMovieDetail() {
       axios({
         method: 'get',
-        url: `${API_URL}/api/v1/movies/${this.$route.params.id}`
+        url: `${API_URL}/api/movies/${this.$route.params.id}`
       })
         .then((res) => {
           console.log(res)
           this.movie = res.data
-          this.comments = res.data.comments
         })
         .catch((err) => {
           console.log(err)

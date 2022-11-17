@@ -15,11 +15,20 @@ export default {
   components: {
     MovieList,
   },
+  created() {
+    this.getMovies()
+  },
   data: function() {
     return {
       popular: 10
       // 타 장르값과 겹치지 않도록 한다.
     }
+  },
+  methods: {
+    getMovies() {
+      this.$store.dispatch('getMovies')
+    }
   }
+
 }
 </script>
