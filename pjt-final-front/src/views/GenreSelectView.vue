@@ -23,13 +23,9 @@
 </template>
 
 <script>
-  import MovieList from '@/components/MovieList'
 
   export default {
   name: 'GenreSelectView',
-  components: {
-      MovieList,
-  },
   data : function() {
       return {
       genre: null
@@ -40,6 +36,8 @@
 
 <style>
 .genre-box {
-  border: 5px solid black;
+  border: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>

@@ -23,7 +23,7 @@ export default {
     }
   },
   props:{
-    genre
+    genre: Number
   }
 }
 </script>
