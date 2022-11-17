@@ -10,6 +10,7 @@
     <p>코멘트</p>
     <CommentList
       :movieId = 'movie?.id'
+      :commentList = 'movie?.comment_set'
       />
   </div>
 </template>

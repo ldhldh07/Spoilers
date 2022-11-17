@@ -10,7 +10,7 @@ from .serializers import CommentSerializer
 
 # Create your views here.
 @api_view(['POST'])
-def create_comment(request, movie_pk):
+def comment_create(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     serialzer = CommentSerializer(data=request.data)
     if serialzer.is_valid(raise_exception=True):

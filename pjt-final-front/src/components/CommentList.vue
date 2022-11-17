@@ -32,10 +32,14 @@ const API_URL = 'http://127.0.0.1:8000'
 export default {
   name:'CommentList',
   props:{
+    commentList : Array,
     movieId : Number,
   },
   components : {
     CommentListItem
+  },
+  updated() {
+    this.$store.dispatch('getMovies')
   },
   data() {
     return {
@@ -45,7 +49,7 @@ export default {
   },
   computed: {
     comments() {
-      return this.$store.state.comments
+      return this.commentList
     },
   },
   methods: {
@@ -59,7 +63,7 @@ export default {
       }
       axios({
         method: 'post',
-        url: `${API_URL}/movies/${this.movieId}/comments/`,
+        url: `${API_URL}/api/community/${this.movieId}/comments/`,
         data: {
           title:title,
           content:content,
