@@ -34,6 +34,9 @@ export default {
   created() {
     this.getMovieDetail()
   },
+  updated() {
+    this.getMovieDetail()
+  },
   methods: {
     getMovieDetail() {
       axios({

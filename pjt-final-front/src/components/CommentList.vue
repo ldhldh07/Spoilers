@@ -38,9 +38,6 @@ export default {
   components : {
     CommentListItem
   },
-  updated() {
-    this.$store.dispatch('getMovies')
-  },
   data() {
     return {
       title: null,
