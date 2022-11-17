@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h4>CommentList</h4>
+  <div class="comment-list">
+    <h4>댓글</h4>
     <CommentListItem
       v-for="comment in commnets"
       :key="comment.id"
@@ -24,3 +24,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.comment-list {
+  text-align: start;
+}
+</style>

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import MovieView from '@/views/MovieView'
+import PopularView from '@/views/PopularView'
+import GenreView from '@/views/GenreView'
 // import SignUpView from '@/views/SignUpView'
 // import LogInView from '@/views/LogInView'
 
@@ -9,8 +10,14 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'MovieView',
-    component: MovieView
+    name: 'PopularView',
+    component: PopularView
+  },
+
+  {
+    path: '/genre/:name',
+    name: 'GenreView',
+    component: GenreView
   },
 
   // {

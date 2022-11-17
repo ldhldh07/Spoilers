@@ -1,5 +1,5 @@
 <template>
-  <div class="movie">
+  <div class="genre">
     <h1>Spoilers</h1>
     <MovieList/>
   </div>
@@ -9,9 +9,9 @@
 import MovieList from '@/components/MovieList'
 
 export default {
-  name: 'MovieView',
+  name: 'GenreView',
   components: {
     MovieList,
-  }
+  },
 }
 </script>
