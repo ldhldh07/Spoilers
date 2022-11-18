@@ -2,42 +2,46 @@
   <div class="genre">
     <h1>장르별 보기</h1>
     <p>장르를 골라주세요</p>
-    <div class="container">
-      <router-link to="/genre/로맨스">
-        <div class="genre-box">
-          로맨스
-        </div>
-      </router-link>
-      <router-link to="/genre/액션">
-        <div class="genre-box">
-          액션
-        </div>
-      </router-link>
-      <router-link to="/genre/미스터리">
-        <div class="genre-box">
-          미스터리
-        </div>
-      </router-link>
+    <div class="container d-flex justify-content flex-wrap">
+      <div class="genre-box"
+      v-for="genre in genres"
+      :key="genre.id">
+        <router-link :to="{name:'GenreView', params:{genre:genre.name,code:String(genre.id)}}">        
+          {{genre.name}}
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 
-  export default {
+export default {
   name: 'GenreSelectView',
-  data : function() {
-      return {
-      genre: null
-      }
+  created() {
+    this.getGenres()
   },
+  methods: {
+    getGenres() {
+      this.$store.dispatch('getGenres')
+    }
+  },
+  computed: {
+    genres() {
+      const array = this.$store.state.genres
+      return array
+    }
   }
+}
 </script>
 
 <style>
 .genre-box {
   border: 1px solid black;
+  width: 150px;
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-left: 60px;
+  margin-bottom: 20px;
 }
 </style>
+

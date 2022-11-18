@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>CommentList</h4>
+    <h4>모두의 스포일러 한마디</h4>
     <CommentListItem
       v-for="comment in comments"
       :key="comment.id"

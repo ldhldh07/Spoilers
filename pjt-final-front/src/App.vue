@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Spoilers에 어서오세요!</h1>
+    <h1>Spoilers!</h1>
     <nav>
       <router-link to="/">인기순 보기</router-link> |
       <!-- <router-link :to="{ name: 'SignUpView' }">회원가입</router-link> | 

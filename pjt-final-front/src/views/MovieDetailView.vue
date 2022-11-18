@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Detail</h1>
-    <img :src="poster" alt="movie-poster">
+    <img :src="poster" alt="movie-poster" class="poster">
     <p>제목 : {{ movie?.movie_title }}</p>
     <p>개봉일 : {{ movie?.date_opened }}</p>
     <p>장르: </p>
@@ -9,23 +9,30 @@
       {{genre.name}}
     </p>
     <p>출연 배우 : </p>
-    <p v-for="(actor,index) in movie?.starring" :key="index">
-      {{ actor.name }}
-      <!-- <router-link :to="{name:'ActorView', params: {id:actor.id }}">{{ actor.name }}</router-link> -->
-    </p>
+    <div class="d-flex flex-wrap">
+      <div v-for="(actor,index) in movie?.starring" :key="index" class="mx-3">
+        <router-link :to="{name:'ActorView', params:{name:actor.name, id:String(actor.id)}}" class="text-decoration-none">
+          {{ actor.name }}
+        </router-link>
+      </div>
+    </div>
     <p>줄거리 : {{ movie?.overview }}</p>
     <p>트레일러</p>
-    <iframe 
-      id="ytplayer" 
-      type="text/html" 
-      width="720" 
-      height="405"
-      :src="trailerSrc"
-      frameborder="0" allowfullscreen></iframe>
-    <p>리뷰영상</p>
-    <div class="ratio ratio-16x9" v-for="(reviewVid,index) in reviewVideos" :key="`r-${index}`">
-      <iframe :src="`https://youtube.com/embed/${reviewVid.id.videoId}`" frameborder="0"></iframe>
+    <div>
+      <iframe 
+        id="ytplayer" 
+        type="text/html" 
+        width="720" 
+        height="405"
+        :src="trailerSrc"
+        frameborder="0" allowfullscreen></iframe>
     </div>
+    <b-button v-b-toggle.collapse-1 variant="primary">리뷰영상 보기</b-button>
+    <b-collapse id="collapse-1">
+      <div class="ratio ratio-16x9 m-5" v-for="(reviewVid,index) in reviewVideos" :key="`r-${index}`">
+        <iframe :src="`https://youtube.com/embed/${reviewVid.id.videoId}`" frameborder="0"></iframe>
+      </div>
+    </b-collapse>
     <p>코멘트</p>
     <CommentList
       :movieId = 'movie?.id'
@@ -60,7 +67,7 @@ export default {
         .then((res) => {
           console.log(res)
           this.movie = res.data
-          this.reviewSearch(this.movie.movie_title+"리뷰")
+          this.reviewSearch(this.movie.movie_title+" 영화 리뷰")
           this.poster = "https://image.tmdb.org/t/p/original" + this.movie.poster_path
           this.trailerSrc = "https://www.youtube.com/embed/" + this.movie.trailer_key
         })
@@ -80,7 +87,6 @@ export default {
         .then(result =>{
           console.log(result)
           this.reviewVideos= result.data.items
-          console.log(this.reviewVideos)
         })
         .catch(error=> {
         console.log(error)
@@ -101,8 +107,11 @@ export default {
     }
   }
 }
-
-// array로 갖고와서 여러개 노출시키기
 </script>
 
 
+<style>
+.poster {
+  height: 50rem;
+}
+</style>
