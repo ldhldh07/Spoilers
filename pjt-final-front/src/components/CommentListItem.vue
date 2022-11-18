@@ -23,7 +23,10 @@ export default {
     deleteComment(commentId) {
       axios({
         method: 'delete',
-        url: `${API_URL}/api/community/${commentId}`
+        url: `${API_URL}/api/community/${commentId}`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
       })
         .then(() => {
           this.$emit('update-comment-list')

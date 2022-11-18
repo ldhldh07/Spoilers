@@ -12,7 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def comment_create(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     serialzer = CommentSerializer(data=request.data)
@@ -22,6 +22,7 @@ def comment_create(request, movie_pk):
         return Response(serialzer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def comment_update(request, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
     

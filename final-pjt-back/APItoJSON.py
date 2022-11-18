@@ -48,6 +48,7 @@ for page in range(1, 1 + amount_of_page):
             'api_key': API_KEY,
             'language': 'ko',
             'region': 'KR',
+            'sort_by': 'popularity.desc',
             'page': page,
         } 
     ).json()
@@ -70,6 +71,7 @@ for page in range(1, 1 + amount_of_page):
         ).json()
         movie_title = detail_response.get('title')
         overview = detail_response.get('overview')
+        popularity = detail_response.get('popularity')
         poster_path = detail_response.get('poster_path')
         genre_list = detail_response.get('genres')
 
@@ -152,6 +154,7 @@ for page in range(1, 1 + amount_of_page):
                 'movie_title': movie_title,
                 'date_opened': date_opened,
                 'overview': overview,
+                'popularity': popularity,
                 'trailer_key': trailer_key,
                 'poster_path': poster_path,
                 'starring': starring,

@@ -3,8 +3,8 @@
     <h1>Spoilers에 어서오세요!</h1>
     <nav>
       <router-link to="/">인기순 보기</router-link> |
-      <!-- <router-link :to="{ name: 'SignUpView' }">회원가입</router-link> | 
-      <router-link :to="{ name: 'LogInView' }">로그인</router-link> -->
+      <router-link :to="{ name: 'SignUpView' }">회원가입</router-link> | 
+      <router-link :to="{ name: 'LogInView' }">로그인</router-link> | 
       <!-- 로그인되어 있으면 노출하되지 않음 -->
       <router-link to="/genre">장르별 보기</router-link> |
       <router-link to="/new">최신순 보기</router-link> |
