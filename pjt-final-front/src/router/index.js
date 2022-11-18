@@ -4,7 +4,7 @@ import SignUpView from '@/views/SignUpView'
 import PopularView from '@/views/PopularView'
 import GenreSelectView from '@/views/GenreSelectView'
 import NewestView from '@/views/NewestView'
-// import LogInView from '@/views/LogInView'
+import LogInView from '@/views/LogInView'
 
 Vue.use(VueRouter)
 

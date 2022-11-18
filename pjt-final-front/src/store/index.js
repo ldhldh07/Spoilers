@@ -18,9 +18,9 @@ export default new Vuex.Store({
     token: null,
   },
   getters: {
-    // isLogin(state) {
-    //   return state.token ? true : false
-    // }
+    isLogin(state) {
+      return state.token ? true : false
+    }
   },
   mutations: {
     GET_MOVIES(state, movies) {
@@ -47,7 +47,6 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-
     signUp(context, payload) {
       axios({
         method: 'post',
@@ -58,28 +57,31 @@ export default new Vuex.Store({
           password2: payload.password2,
         }
       })
-      .then((res)=>{
+      .then((response)=>{
         // console.log(res)
-        context.commit('SAVE_TOKEN', res.data.key)
+        context.commit('SAVE_TOKEN', response.data.key)
       })
-        .catch((err)=>{
-          console.log(err)
+      .catch((error)=>{
+        console.log(error)
+      })
+    },
+    logIn(context, payload) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/login/`,
+        data: {
+          username: payload.username,
+          password: payload.password,
+        }
+      })
+        .then((response) => {
+          // console.log(res)
+          context.commit('SAVE_TOKEN', response.data.key)
+        })
+        .catch((error)=>{
+          console.log(error)
         })
     },
-    // logIn(context, payload) {
-    //   axios({
-    //     method: 'post',
-    //     url: `${API_URL}/accounts/login/`,
-    //     data: {
-    //       username: payload.username,
-    //       password: payload.password,
-    //     }
-    //   })
-    //     .then((res) => {
-    //       // console.log(res)
-    //       context.commit('SAVE_TOKEN', res.data.key)
-    //     })
-    // },
   },
   modules: {
   }

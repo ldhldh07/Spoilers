@@ -62,9 +62,9 @@ export default {
           title:title,
           content:content,
         },
-        // headers: {
-        //   Authorization: `Token ${this.$store.state.token}`
-        // },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
       })
         .then(() => {
           this.title = null
