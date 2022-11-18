@@ -27,19 +27,18 @@ export default new Vuex.Store({
       state.movies = movies
     },
     // 회원가입 && 로그인
-    // SAVE_TOKEN(state, token) {
-    //   state.token = token
-    //   router.push({ name: 'MovieView' })
-    // }
+    SAVE_TOKEN(state, token) {
+      state.token = token
+    }
   },
   actions: {
     getMovies(context) {
       axios({
         method: 'get',
         url: `${API_URL}/api/movies/`,
-        headers: {
-          Authorization: `Token ${context.state.token}`
-        }
+        // headers: {
+        //   Authorization: `Token ${context.state.token}`
+        // }
       })
         .then((res) => {
           context.commit('GET_MOVIES', res.data)
@@ -49,21 +48,24 @@ export default new Vuex.Store({
         })
     },
 
-    // signUp(context, payload) {
-    //   axios({
-    //     method: 'post',
-    //     url: `${API_URL}/accounts/signup/`,
-    //     data: {
-    //       username: payload.username,
-    //       password1: payload.password1,
-    //       password2: payload.password2,
-    //     }
-    //   })
-    //     .then((res) => {
-    //       // console.log(res)
-    //       context.commit('SAVE_TOKEN', res.data.key)
-    //     })
-    // },
+    signUp(context, payload) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/signup/`,
+        data: {
+          username: payload.username,
+          password1: payload.password1,
+          password2: payload.password2,
+        }
+      })
+      .then((res)=>{
+        // console.log(res)
+        context.commit('SAVE_TOKEN', res.data.key)
+      })
+        .catch((err)=>{
+          console.log(err)
+        })
+    },
     // logIn(context, payload) {
     //   axios({
     //     method: 'post',
