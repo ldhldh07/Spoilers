@@ -28,7 +28,7 @@ const routes = [
   },
 
   {
-    path: '/genre/:name',
+    path: '/genre/:genre/:code',
     name: 'GenreView',
     component: () => import('../views/GenreView.vue')
   },
@@ -56,7 +56,7 @@ const routes = [
   },
 
   {
-    path: '/actor/:id',
+    path: '/actor/:name/:id',
     name: 'ActorView',
     component: () => import('../views/ActorView.vue')
   },
@@ -77,7 +77,10 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior() {
+    return {x:0, y:0}
+  }
 })
 
 export default router

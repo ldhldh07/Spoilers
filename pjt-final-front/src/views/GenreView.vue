@@ -2,7 +2,7 @@
   <div class="genre">
     <h1>{{genre}} 영화</h1>
     <GenreMovieList
-      :genre="genre"
+      :genre-code="genreCode"
     />
   </div>
 </template>
@@ -15,9 +15,18 @@ export default {
   components: {
     GenreMovieList,
   },
+  created() {
+    this.getMovies()    
+  },
   data: function() {
     return {
-      genre: this.$route.params.name
+      genre: this.$route.params.genre,
+      genreCode: this.$route.params.code
+    }
+  },
+  methods: {
+    getMovies() {
+      this.$store.dispatch('getMovies')
     }
   }
 }

@@ -20,6 +20,3 @@ class Movie(models.Model):
     poster_path = models.CharField(max_length=200)
     starring = models.ManyToManyField(Actor, related_name='filmography')
     genres_of_movie = models.ManyToManyField(Genre, related_name='movies_of_genre')
-
-
-

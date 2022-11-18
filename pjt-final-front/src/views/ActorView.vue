@@ -1,8 +1,8 @@
 <template>
   <div class="Actor">
-    <h1>This is Actor page</h1>
+    <h1> {{actorname}}가 출연한 영화들</h1>
     <ActorMovieList 
-      :genre="actor"
+      :actor="actor"
     />
   </div>
 </template>
@@ -17,7 +17,8 @@ export default {
   },
   data: function() {
     return {
-      actor: this.$router.params.id
+      actor: this.$route.params.id,
+      actorname: this.$route.params.name
     }
   }
 }

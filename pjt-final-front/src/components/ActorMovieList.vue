@@ -1,11 +1,12 @@
 <template>
   <div>
-    <h4>movielist</h4>
-    <MovieListItem
-      v-for="movie in movies"
-      :key="movie.id"
-      :movie="movie"
-    />
+    <div class="container d-flex justify-content flex-wrap">
+      <MovieListItem
+        v-for="movie in movies"
+        :key="movie.id"
+        :movie="movie"
+      />
+    </div>
   </div>
 </template>
 
@@ -19,11 +20,13 @@ export default {
   },
   computed: {
     movies() {
-      return this.$store.state.movies
+      const array = this.$store.state.movies
+      const actorArray = array.filter(movie => movie.starring.includes(Number(this.actor)))
+      return actorArray
     }
   },
   props:{
-    actor: Number
+    actor: String
   }
 }
 </script>

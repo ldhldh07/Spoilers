@@ -172,3 +172,4 @@ with open('./movies/fixtures/actors.json', 'w', encoding='UTF-8') as outfile:
     json.dump(all_actor_list, outfile, indent=4, ensure_ascii=False)
 with open('./movies/fixtures/movies.json', 'w', encoding='UTF-8') as outfile:
     json.dump(all_movie_list, outfile, indent=4, ensure_ascii=False)
+

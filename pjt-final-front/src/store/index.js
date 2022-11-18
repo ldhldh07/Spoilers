@@ -15,7 +15,8 @@ export default new Vuex.Store({
   state: {
     movies: [],
     comments: [],
-    token: null,
+    genres: [],
+    // token: null,
   },
   getters: {
     isLogin(state) {
@@ -25,6 +26,9 @@ export default new Vuex.Store({
   mutations: {
     GET_MOVIES(state, movies) {
       state.movies = movies
+    },
+    GET_GENRES(state, genres) {
+      state.genres = genres
     },
     // 회원가입 && 로그인
     SAVE_TOKEN(state, token) {
@@ -43,6 +47,18 @@ export default new Vuex.Store({
       })
         .then((res) => {
           context.commit('GET_MOVIES', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    getGenres(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/movies/genres/`,
+      })
+        .then((res) => {
+          context.commit('GET_GENRES', res.data)
         })
         .catch((err) => {
           console.log(err)

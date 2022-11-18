@@ -6,3 +6,4 @@ from movies.models import Movie
 class User(AbstractUser):
     is_staff = models.BooleanField(default=False)
     wish_list = models.ForeignKey(Movie, null=True, on_delete=models.CASCADE)
+
