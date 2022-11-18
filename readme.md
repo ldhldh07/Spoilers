@@ -20,3 +20,7 @@
 ## vi. 배포 서버 URL
  
 ## vii. 기타
+
+## viii. 오류 기록
+1. moviedetailpage에서 axios get 요청이 2번 이루어지기 때문에 뒤로가기 한 번으로는 페이지에서 벗어날 수 없는 오류.
+   * get axios 요청 한번당 페이지 하나로 치나?

@@ -23,8 +23,8 @@
       :src="trailerSrc"
       frameborder="0" allowfullscreen></iframe>
     <p>리뷰영상</p>
-    <div class="ratio ratio-16x9">
-      <iframe :src="videoSrc" frameborder="0"></iframe>
+    <div class="ratio ratio-16x9" v-for="(reviewVid,index) in reviewVideos" :key="`r-${index}`">
+      <iframe :src="`https://youtube.com/embed/${reviewVid.id.videoId}`" frameborder="0"></iframe>
     </div>
     <p>코멘트</p>
     <CommentList
@@ -47,16 +47,6 @@ export default {
   name: 'MovieDetailView',
   components: {
     CommentList,
-  },
-  data() {
-    return {
-      movie: null,
-    }
-  },
-  computed: {
-    comments() {
-      return this.movie?.comment_set
-    }
   },
   created() {
     this.getMovieDetail()
@@ -89,10 +79,8 @@ export default {
       })
         .then(result =>{
           console.log(result)
-          this.videos= result.data.items
-          this.selectedVideo1 = this.videos[0].id.videoId
-          this.selectedVideo2 = this.videos[1].id.videoId
-          console.log(this.selectedVideo1)
+          this.reviewVideos= result.data.items
+          console.log(this.reviewVideos)
         })
         .catch(error=> {
         console.log(error)
@@ -104,15 +92,13 @@ export default {
       movie: null,
       poster: null,
       trailerSrc: null,
-      videos: Array,
-      selectedVideo1 : null,
-      selectedVideo2 : null,
+      reviewVideos: Array,
     }
   },
   computed: {
-    videoSrc() {
-      return `https://youtube.com/embed/${this.selectedVideo1}`
-    } 
+    comments() {
+      return this.movie?.comment_set
+    }
   }
 }
 

@@ -15,7 +15,7 @@ export default new Vuex.Store({
   state: {
     movies: [],
     comments: [],
-    token: null,
+    // token: null,
   },
   getters: {
     // isLogin(state) {
@@ -38,7 +38,7 @@ export default new Vuex.Store({
         method: 'get',
         url: `${API_URL}/api/movies/`,
         headers: {
-          Authorization: `Token ${context.state.token}`
+          // Authorization: `Token ${context.state.token}`
         }
       })
         .then((res) => {
