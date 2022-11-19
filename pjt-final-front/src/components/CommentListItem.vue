@@ -1,8 +1,8 @@
 <template>
   <div>
     <h5>{{ comment.title }}</h5>
-    <!-- <p>작성자 : {{comment.user_id}}</p> -->
     <p>{{ comment.content }}</p>
+    <p>작성자 : {{comment.user.username}}</p>
     <p>작성일시 : {{ comment.created_at }}</p>
     <button @click=deleteComment(comment.id)>X</button>
   </div>

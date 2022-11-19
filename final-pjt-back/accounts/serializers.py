@@ -7,3 +7,10 @@ class UserSerializer(serializers.ModelSerializer):
         model = get_user_model()
         exclude=('password',)
         write_only_fields = ['password',]
+
+
+class UserCommentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields=('id', 'username',)

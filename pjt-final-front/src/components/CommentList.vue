@@ -50,6 +50,7 @@ export default {
     createComment() {
       const title = this.title
       const content = this.content
+      const userId = this.$store.state.user.id
       if (!title) {
         alert('제목 입력해주세요')
       } else if (!content) {
@@ -59,8 +60,9 @@ export default {
         method: 'post',
         url: `${API_URL}/api/community/${this.movieId}/comments/`,
         data: {
-          title:title,
-          content:content,
+          title: title,
+          content: content,
+          user_id: userId
         },
         headers: {
           Authorization: `Token ${this.$store.state.token}`
