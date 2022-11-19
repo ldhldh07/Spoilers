@@ -16,7 +16,8 @@ export default new Vuex.Store({
     movies: [],
     comments: [],
     genres: [],
-    // token: null,
+    token: null,
+    user: null,
   },
   getters: {
     isLogin(state) {
@@ -34,6 +35,9 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, token) {
       state.token = token
       router.push({ name: 'PopularView' })
+    },
+    GET_USER_DETAIL(state, user) {
+      state.user = user
     }
   },
   actions: {
@@ -78,6 +82,10 @@ export default new Vuex.Store({
         // console.log(res)
         const key = response.data.key
         context.commit('SAVE_TOKEN', key)
+        return key
+      })
+      .then((key)=> {
+        context.dispatch('getUserDetail', key)
       })
       .catch((error)=>{
         console.log(error)
@@ -92,14 +100,35 @@ export default new Vuex.Store({
           password: payload.password,
         }
       })
-        .then((response) => {
+        .then((response)=>{
           // console.log(res)
-          context.commit('SAVE_TOKEN', response.data.key)
+          const key = response.data.key
+          context.commit('SAVE_TOKEN', key)
+          return key
+        })
+        .then((key)=> {
+          context.dispatch('getUserDetail', key)
         })
         .catch((error)=>{
           console.log(error)
         })
     },
+    getUserDetail(context, key) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/api/accounts/`,
+        data: {
+          key: key,
+        }
+      })
+        .then((response) => {
+          console.log(response)
+          context.commit('GET_USER_DETAIL', response.data)
+        })
+        .catch((error)=>{
+          console.log(error)
+        })
+    }
   },
   modules: {
   }

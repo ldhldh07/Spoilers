@@ -9,9 +9,14 @@ from rest_framework.authtoken.models import Token
 
 # Create your views here.
 
-@api_view(['GET'])
-def user_detail(request, username):
-    user = get_object_or_404(get_user_model(), username=username)
+@api_view(['POST'])
+def user_detail(request):
+    print(request.data)
+    key = request.data.get('key')
+    token = get_object_or_404(Token, key=key)
+    user_pk = token.user_id
+
+    user = get_object_or_404(get_user_model(), pk=user_pk)
     serializer = UserSerializer(user)
     return Response(serializer.data)
 

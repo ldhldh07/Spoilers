@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <h1>Spoilers!</h1>
+    <h2>{{ user.username }}님 안녕하세용</h2>
     <nav>
       <router-link to="/">인기순 보기</router-link> |
       <router-link :to="{ name: 'SignUpView' }">회원가입</router-link> | 
@@ -12,7 +13,19 @@
     <router-view/>
   </div>
 </template>
-
+<script>
+export default {
+  data() {
+    return {
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.state.user
+    }
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
