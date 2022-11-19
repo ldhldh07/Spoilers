@@ -1,12 +1,16 @@
 <template>
   <div id="app">
     <h1>Spoilers!</h1>
-    <h2>{{ user.username }}님 안녕하세용</h2>
+    <h2 v-if="isLogIn"> {{ user?.username }}님 안녕하세용</h2>
     <nav>
       <router-link to="/">인기순 보기</router-link> |
-      <router-link :to="{ name: 'SignUpView' }">회원가입</router-link> | 
-      <router-link :to="{ name: 'LogInView' }">로그인</router-link> | 
-      <!-- 로그인되어 있으면 노출하되지 않음 -->
+      <span v-if="!isLogIn" >
+        <router-link :to="{ name: 'SignUpView' }">회원가입</router-link> | 
+        <router-link :to="{ name: 'LogInView' }">로그인</router-link> | 
+      </span>
+      <span v-else>
+        <a href="#" @click="logOut">로그아웃</a> | 
+      </span>
       <router-link to="/genre">장르별 보기</router-link> |
       <router-link to="/new">최신순 보기</router-link> |
     </nav>
@@ -22,6 +26,14 @@ export default {
   computed: {
     user() {
       return this.$store.state.user
+    },
+    isLogIn() {
+      return this.$store.getters.isLogIn
+    }
+  },
+  methods: {
+    logOut() {
+      this.$store.commit('LOG_OUT')
     }
   }
 }

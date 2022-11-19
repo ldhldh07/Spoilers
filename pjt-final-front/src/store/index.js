@@ -20,7 +20,7 @@ export default new Vuex.Store({
     user: null,
   },
   getters: {
-    isLogin(state) {
+    isLogIn(state) {
       return state.token ? true : false
     }
   },
@@ -38,6 +38,10 @@ export default new Vuex.Store({
     },
     GET_USER_DETAIL(state, user) {
       state.user = user
+    },
+    LOG_OUT(state) {
+      state.token = null
+      state.user = null
     }
   },
   actions: {
@@ -45,9 +49,6 @@ export default new Vuex.Store({
       axios({
         method: 'get',
         url: `${API_URL}/api/movies/`,
-        // headers: {
-        //   Authorization: `Token ${context.state.token}`
-        // }
       })
         .then((res) => {
           context.commit('GET_MOVIES', res.data)
@@ -122,7 +123,6 @@ export default new Vuex.Store({
         }
       })
         .then((response) => {
-          console.log(response)
           context.commit('GET_USER_DETAIL', response.data)
         })
         .catch((error)=>{
