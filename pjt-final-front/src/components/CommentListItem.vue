@@ -4,7 +4,7 @@
     <p>{{ comment.content }}</p>
     <p>작성자 : {{comment.user.username}}</p>
     <p>작성일시 : {{ comment.created_at }}</p>
-    <button @click=deleteComment(comment.id)>X</button>
+    <button v-if="isOwner" @click=deleteComment(comment.id)>X</button>
   </div>
 </template>
   
@@ -18,6 +18,11 @@ export default {
   name: 'CommentListItem',
   props: {
     comment: Object,
+  },
+  computed: {
+    isOwner() {
+      return this.$store.state.user.id === this.comment.user.id ? true : false
+    }
   },
   methods: {
     deleteComment(commentId) {
