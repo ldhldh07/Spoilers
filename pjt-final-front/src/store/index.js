@@ -76,7 +76,8 @@ export default new Vuex.Store({
       })
       .then((response)=>{
         // console.log(res)
-        context.commit('SAVE_TOKEN', response.data.key)
+        const key = response.data.key
+        context.commit('SAVE_TOKEN', key)
       })
       .catch((error)=>{
         console.log(error)

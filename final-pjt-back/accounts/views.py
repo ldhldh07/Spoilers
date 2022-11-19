@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from .serializers import UserReigistrationSerializer
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth import get_user_model
+from .serializers import UserSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -7,6 +8,13 @@ from rest_framework.authtoken.models import Token
 
 
 # Create your views here.
+
+@api_view(['GET'])
+def user_detail(request, username):
+    user = get_object_or_404(get_user_model(), username=username)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
+
 # @api_view(['POST'])
 # def signup(request):
 #     if request.user.is_authenticated:
