@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     isOwner() {
-      return this.$store.state.user.id === this.comment.user.id ? true : false
+      return this.$store.state.user?.id === this.comment.user.id ? true : false
     }
   },
   methods: {

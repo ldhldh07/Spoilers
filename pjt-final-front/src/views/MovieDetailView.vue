@@ -33,7 +33,7 @@
         <iframe :src="`https://youtube.com/embed/${reviewVid.id.videoId}`" frameborder="0"></iframe>
       </div>
     </b-collapse>
-    <p>코멘트</p>
+    <br>
     <CommentList
       :movieId = 'movie?.id'
       :comments = comments

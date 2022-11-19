@@ -7,20 +7,22 @@
       :comment="comment"
       @update-comment-list="updateCommentList"
     />
-    <p>댓글 작성</p>
-    <form @submit.prevent="createComment">
-      <label for="title">제목: </label>
-      <input type="text" id="title" v-model.trim="title"><br>
-      <label for="content">내용: </label>
-      <textarea
-        id="content"
-        cols="30"
-        rows="10"
-        v-model.trim="content"
-      >
-      </textarea>
-      <input type="submit" id="submit">
-    </form>
+    <div v-if="isLogIn">
+      <p>댓글 작성</p>
+      <form @submit.prevent="createComment">
+        <label for="title">제목: </label>
+        <input type="text" id="title" v-model.trim="title"><br>
+        <label for="content">내용: </label>
+        <textarea
+          id="content"
+          cols="30"
+          rows="10"
+          v-model.trim="content"
+        >
+        </textarea>
+        <input type="submit" id="submit">
+      </form>
+    </div>
   </div>
 </template>
 
@@ -44,6 +46,11 @@ export default {
     return {
       title: null,
       content: null,
+    }
+  },
+  computed: {
+    isLogIn() {
+      return this.$store.getters.isLogIn
     }
   },
   methods: {
