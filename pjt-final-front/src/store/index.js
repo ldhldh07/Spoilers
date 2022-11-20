@@ -32,9 +32,13 @@ export default new Vuex.Store({
       state.genres = genres
     },
     // 회원가입 && 로그인
-    SAVE_TOKEN(state, token) {
-      state.token = token
-      router.push({ name: 'PopularView' })
+    SAVE_TOKEN(state, loginPayload) {
+      state.token = loginPayload.key
+      if (loginPayload.next) {
+        router.push({ name: loginPayload.next })
+      } else {
+        router.push({ name: 'PopularView' })
+      }
     },
     GET_USER_DETAIL(state, user) {
       state.user = user
@@ -80,9 +84,13 @@ export default new Vuex.Store({
         }
       })
       .then((response)=>{
-        // console.log(res)
         const key = response.data.key
-        context.commit('SAVE_TOKEN', key)
+        const next = payload.next
+        const loginPayload = { 
+          key,
+          next,
+        }
+        context.commit('SAVE_TOKEN', loginPayload)
         return key
       })
       .then((key)=> {
@@ -102,9 +110,13 @@ export default new Vuex.Store({
         }
       })
         .then((response)=>{
-          // console.log(res)
           const key = response.data.key
-          context.commit('SAVE_TOKEN', key)
+          const next = payload.next
+          const loginPayload = { 
+            key,
+            next,
+          }
+          context.commit('SAVE_TOKEN', loginPayload)
           return key
         })
         .then((key)=> {

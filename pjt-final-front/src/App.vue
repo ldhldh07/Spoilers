@@ -5,9 +5,8 @@
     <nav>
       <router-link to="/">인기순 보기</router-link> |
       <span v-if="!isLogIn" >
-        <router-link :to="{ name: 'SignUpView' }">회원가입</router-link> | 
-        <router-link :to="{ name: 'LogInView'}">로그인</router-link> | 
-        <!-- <router-link :to="{ name: 'LogInView', query: { path: window.location.pathname } }">로그인</router-link> |  -->
+        <router-link :to="{ name: 'SignUpView', query: { next: fromName }  }">회원가입</router-link> | 
+        <router-link :to="{ name: 'LogInView', query: { next: fromName } }">로그인</router-link> | 
       </span>
       <span v-else>
         <a href="#" @click="logOut">로그아웃</a> | 
@@ -31,15 +30,15 @@ export default {
     isLogIn() {
       return this.$store.getters.isLogIn
     },
-    // fromUrl() {
-
-    // }
+    fromName() {
+      return this.$route.name
+    }
   },
   methods: {
     logOut() {
       this.$store.commit('LOG_OUT')
     }
-  }
+  },
 }
 </script>
 <style>
