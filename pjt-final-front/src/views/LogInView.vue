@@ -26,10 +26,12 @@ export default {
     logIn() {
       const username = this.username
       const password = this.password
+      const next = this.$route.query.next
 
       const payload = {
         username,
         password,
+        next,
       }
       this.$store.dispatch('logIn', payload)
     }

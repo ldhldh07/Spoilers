@@ -16,10 +16,11 @@ export default new Vuex.Store({
     movies: [],
     comments: [],
     genres: [],
-    // token: null,
+    token: null,
+    user: null,
   },
   getters: {
-    isLogin(state) {
+    isLogIn(state) {
       return state.token ? true : false
     }
   },
@@ -31,9 +32,20 @@ export default new Vuex.Store({
       state.genres = genres
     },
     // 회원가입 && 로그인
-    SAVE_TOKEN(state, token) {
-      state.token = token
-      router.push({ name: 'PopularView' })
+    SAVE_TOKEN(state, loginPayload) {
+      state.token = loginPayload.key
+      if (loginPayload.next) {
+        router.push({ name: loginPayload.next })
+      } else {
+        router.push({ name: 'PopularView' })
+      }
+    },
+    GET_USER_DETAIL(state, user) {
+      state.user = user
+    },
+    LOG_OUT(state) {
+      state.token = null
+      state.user = null
     }
   },
   actions: {
@@ -41,9 +53,6 @@ export default new Vuex.Store({
       axios({
         method: 'get',
         url: `${API_URL}/api/movies/`,
-        // headers: {
-        //   Authorization: `Token ${context.state.token}`
-        // }
       })
         .then((res) => {
           context.commit('GET_MOVIES', res.data)
@@ -75,9 +84,17 @@ export default new Vuex.Store({
         }
       })
       .then((response)=>{
-        // console.log(res)
         const key = response.data.key
-        context.commit('SAVE_TOKEN', key)
+        const next = payload.next
+        const loginPayload = { 
+          key,
+          next,
+        }
+        context.commit('SAVE_TOKEN', loginPayload)
+        return key
+      })
+      .then((key)=> {
+        context.dispatch('getUserDetail', key)
       })
       .catch((error)=>{
         console.log(error)
@@ -92,14 +109,38 @@ export default new Vuex.Store({
           password: payload.password,
         }
       })
-        .then((response) => {
-          // console.log(res)
-          context.commit('SAVE_TOKEN', response.data.key)
+        .then((response)=>{
+          const key = response.data.key
+          const next = payload.next
+          const loginPayload = { 
+            key,
+            next,
+          }
+          context.commit('SAVE_TOKEN', loginPayload)
+          return key
+        })
+        .then((key)=> {
+          context.dispatch('getUserDetail', key)
         })
         .catch((error)=>{
           console.log(error)
         })
     },
+    getUserDetail(context, key) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/api/accounts/`,
+        data: {
+          key: key,
+        }
+      })
+        .then((response) => {
+          context.commit('GET_USER_DETAIL', response.data)
+        })
+        .catch((error)=>{
+          console.log(error)
+        })
+    }
   },
   modules: {
   }
