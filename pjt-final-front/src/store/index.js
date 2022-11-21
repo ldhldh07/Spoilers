@@ -35,7 +35,7 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, loginPayload) {
       state.token = loginPayload.key
       if (loginPayload.next) {
-        router.push({ name: loginPayload.next })
+        router.push({ path: loginPayload.next })
       } else {
         router.push({ name: 'PopularView' })
       }
@@ -81,6 +81,7 @@ export default new Vuex.Store({
           username: payload.username,
           password1: payload.password1,
           password2: payload.password2,
+          email: payload.email,
         }
       })
       .then((response)=>{
@@ -124,6 +125,7 @@ export default new Vuex.Store({
         })
         .catch((error)=>{
           console.log(error)
+          alert('로그인 실패')
         })
     },
     getUserDetail(context, key) {

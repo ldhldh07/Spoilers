@@ -79,6 +79,12 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080',
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_USERNAME_REQUIRED = False
+
 ROOT_URLCONF = 'spoilers.urls'
 
 TEMPLATES = [
