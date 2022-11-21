@@ -1,10 +1,10 @@
 <template>
-  <b-card class="text-center moviecard">
+  <div class="figure col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2">
     <router-link :to="{ name: 'MovieDetailView', params: { id: movie.id } }" class="text-decoration-none">
-      <b-card-img :src="poster" alt="movie-poster" class="thumbnail"></b-card-img>
-      <b-card-title> {{movie.movie_title}} </b-card-title>
+      <img :src="poster" alt="movie-poster" class="thumbnail rounded">
+      <figcaption class="caption text-nowrap"> {{movie.movie_title}} </figcaption>
     </router-link>
-  </b-card>
+  </div>
 </template>
   
 <script>
@@ -22,14 +22,23 @@ export default {
 </script>
 
 <style>
-.thumbnail{
-  height: 20rem;
-  object-fit: scale-down;
+
+.figure {
+  margin-bottom: 55px;
+  padding-right: 1.5rem;
+  overflow: hidden;
 }
 
-.moviecard{
- width: 200px; 
- margin: 6px;
+.thumbnail{
+  width: 100%;
+  object-fit: cover;
+}
+
+.caption {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #333d51;
+  font-size: large
 }
 
 </style>

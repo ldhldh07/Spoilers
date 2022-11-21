@@ -1,10 +1,20 @@
 <template>
-  <div class="container d-flex justify-content flex-wrap">
-    <MovieListItem
-      v-for="movie in movies"
-      :key="movie.id"
-      :movie="movie"
-    />
+  <div class="d-flex flex-wrap">
+    <div id="movieitems">
+      <MovieListItem
+        v-for="movie in movies"
+        :key="movie.id"
+        :movie="movie"
+      />
+    </div>
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="movieitems"
+      first-number
+      last-number
+    ></b-pagination>
   </div>
 </template>
 
@@ -16,16 +26,25 @@ export default {
   components : {
     MovieListItem
   },
+  data() {
+    return {
+      perPage: 24,
+      currentPage: 1,
+    }
+  },
   computed: {
     movies() {
       const array = this.$store.state.movies
       if (this.isNew) {
         const orderedDate = array.sort((a,b) => new Date(b.date_opened) - new Date(a.date_opened))
-        return orderedDate
+        return orderedDate.slice((this.currentPage-1)*this.perPage, this.currentPage*this.perPage)
       } else {
         const orderedPopularity = array.sort((a,b) => b.popularity - a.popularity)
-        return orderedPopularity
+        return orderedPopularity.slice((this.currentPage-1)*this.perPage, this.currentPage*this.perPage)
       }
+    },
+    rows() {
+      return this.$store.state.movies.length
     }
   },
   props:{
@@ -33,3 +52,28 @@ export default {
   }
 }
 </script>
+
+<style>
+
+.pagination {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.pagination .page-item.disabled .page-link{
+  background-color:#333d51;
+  color : #f4f3ea;
+}
+
+.pagination .page-link {
+  background-color: #333d51 ;
+  color : #f4f3ea;
+}
+
+.pagination .page-item.active .page-link {
+  color: #333d51;
+  background-color: #d3ac2b;
+  border: solid white 1px;
+}
+
+</style>

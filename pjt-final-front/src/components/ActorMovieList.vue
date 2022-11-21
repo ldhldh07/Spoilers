@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="container d-flex justify-content flex-wrap">
+  <div id="actormovie">
+    <div class="d-flex flex-wrap">
       <MovieListItem
         v-for="movie in movies"
         :key="movie.id"
@@ -30,3 +30,9 @@ export default {
   }
 }
 </script>
+
+<style>
+#actormovie {
+  margin-bottom: 0px;
+}
+</style>

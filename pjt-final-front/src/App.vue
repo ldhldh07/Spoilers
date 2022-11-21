@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <b-navbar fixed="top" type="dark" id="bar">
+    <b-navbar fixed="top" type="dark" id="bar" class="text-nowrap">
       <b-navbar-brand id="title" to="/home">Spoilers</b-navbar-brand>
       <b-navbar-nav>
         <b-nav-item to="/home">인기</b-nav-item>
@@ -8,8 +8,8 @@
         <b-nav-item to="/genre">장르</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav v-if="!isLogIn" class="ms-auto">
-        <b-nav-item :to="{ name: 'LogInView', query: { next: fromName } }" >로그인</b-nav-item>
-        <b-nav-item :to="{ name: 'SignUpView', query: { next: fromName } }" >회원가입</b-nav-item>
+        <b-nav-item :to="{ name: 'LogInView', query: { next: fromPath } }" >로그인</b-nav-item>
+        <b-nav-item :to="{ name: 'SignUpView', query: { next: fromPath } }" >회원가입</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav v-else class="ms-auto">
         <a href="#" @click="logOut">로그아웃</a>
@@ -69,20 +69,15 @@ export default {
 #app {
   font-family: 'SUIT-Medium';
   text-align: left;
-  padding-left: 4rem;
-  padding-right: 4rem;
+  padding-left: 13%;
+  padding-right: 13%;
   color: #333d51;
-  background: #eef2f3;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to top, #8e9eab, #eef2f3);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to top, #8e9eab, #eef2f3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background-size: cover;
-  background-attachment: fixed;
 }
 
 #bar {
   background-color: #333d51;
-  padding-left: 4rem;
-  padding-right: 4rem;
+  padding-left: 13%;
+  padding-right: 13%;
 }
 
 .navbar-dark .navbar-nav .nav-link{
@@ -103,6 +98,6 @@ export default {
 }
 
 #content{
-  padding-top: 100px;
+  padding-top: 120px;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div class="genre">
     <h1 id="main">장르 선택</h1>
-    <div class="container d-flex justify-content flex-wrap">
-      <div class="genre-box mx-auto my-3"
+    <div class="d-flex justify-content-start flex-wrap">
+      <div class="genre-box me-3 my-3"
       v-for="(genre, index) in genres"
       :key="genre.id"
       :id="'g'+index">
