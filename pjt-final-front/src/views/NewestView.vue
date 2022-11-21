@@ -1,6 +1,6 @@
 <template>
   <div class="popular">
-    <h1>최신순 보기</h1>
+    <h1 id="main">따끈따끈한 최신 영화</h1>
     <MovieList
       :isNew="isNew"
     />
@@ -22,3 +22,9 @@ export default {
   },
 }
 </script>
+
+<style>
+#main{
+  font-weight: bold;
+}
+</style>
