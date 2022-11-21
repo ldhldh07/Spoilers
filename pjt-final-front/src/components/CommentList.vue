@@ -10,17 +10,20 @@
     <div v-if="isLogIn">
       <p>댓글 작성</p>
       <form @submit.prevent="createComment">
-        <label for="title">제목: </label>
-        <input type="text" id="title" v-model.trim="title"><br>
-        <label for="content">내용: </label>
-        <textarea
-          id="content"
-          cols="30"
-          rows="10"
-          v-model.trim="content"
-        >
-        </textarea>
-        <input type="submit" id="submit">
+            <label class="form-label" for="title"> 제목 </label>
+            <input class="form-control" type="text" id="title" v-model.trim="title"><br>
+            <label class="form-label" for="content">내용 </label>
+            <textarea
+              class="form-control"
+              id="content"
+              cols="10"
+              rows="5"
+              v-model.trim="content"
+            >
+            </textarea>
+            <div id="comment-area">
+              <input class="btn btn-warning" type="submit" id="submit-button" value="입력">        
+            </div>
       </form>
     </div>
   </div>
@@ -90,3 +93,14 @@ export default {
   }
 }
 </script>
+
+<style>
+#submit-button {
+  margin-top: 10px;
+}
+
+#comment-area {
+  display: flex;
+  flex-direction: row-reverse;
+}
+</style>

@@ -8,8 +8,8 @@
         <b-nav-item to="/genre">장르</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav v-if="!isLogIn" class="ms-auto">
-        <b-nav-item :to="{ name: 'LogInView', query: { next: fromName } }" >로그인</b-nav-item>
-        <b-nav-item :to="{ name: 'SignUpView', query: { next: fromName } }" >회원가입</b-nav-item>
+        <b-nav-item :to="{ name: 'LogInView', query: { next: fromPath } }" >로그인</b-nav-item>
+        <b-nav-item :to="{ name: 'SignUpView', query: { next: fromPath } }" >회원가입</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav v-else class="ms-auto">
         <a href="#" @click="logOut">로그아웃</a>

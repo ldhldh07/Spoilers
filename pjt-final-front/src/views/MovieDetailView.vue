@@ -1,32 +1,51 @@
 <template>
-  <div>
-    <h1>Detail</h1>
-    <img :src="poster" alt="movie-poster" class="poster">
-    <p>제목 : {{ movie?.movie_title }}</p>
-    <p>개봉일 : {{ movie?.date_opened }}</p>
-    <p>장르: </p>
-    <p v-for="(genre,index) in movie?.genres_of_movie" :key="`g-${index}`" >
-      {{genre.name}}
-    </p>
-    <p>출연 배우 : </p>
-    <div class="d-flex flex-wrap">
-      <div v-for="(actor,index) in movie?.starring" :key="index" class="mx-3">
-        <router-link :to="{name:'ActorView', params:{name:actor.name, id:String(actor.id)}}" class="text-decoration-none">
-          {{ actor.name }}
-        </router-link>
+  <div class="container">
+    <div class="row">
+      <div class="col-12" id="trailer-box">
+        <iframe
+          id="ytplayer" 
+          type="text/html" 
+          class= "ratio ratio-16x9"
+          :src="trailerSrc"
+          frameborder="0"
+          allowfullscreen
+        >
+        </iframe>
       </div>
     </div>
-    <p>줄거리 : {{ movie?.overview }}</p>
-    <p>트레일러</p>
-    <div>
-      <iframe 
-        id="ytplayer" 
-        type="text/html" 
-        width="720" 
-        height="405"
-        :src="trailerSrc"
-        frameborder="0" allowfullscreen></iframe>
+    <div class="row" id="movie-info-box">
+      <div class="col-4" id="poster-box">
+        <img :src="poster" alt="movie-poster" class="rounded poster">
+      </div>
+      <div class="col-8">
+        <h1> {{ movie?.movie_title }}</h1>
+        <p> {{ movie?.overview }}</p>
+        <p>개봉일 : {{ movie?.date_opened }}</p>
+        <span>장르: </span>
+        <span
+          v-for="genre in movie?.genres_of_movie"
+          :key="genre.id"
+        >
+          <router-link :to="{name:'GenreView', params:{genre:genre.name, code:String(genre.id)}}">        
+            <span class="badge bg-dark ms-1">
+              {{ genre.name }}
+            </span>
+          </router-link>
+        </span>
+        <br><br>
+        <p>출연 배우 : </p>
+        <div class="d-flex flex-wrap">
+          <div v-for="actor in movie?.starring" :key="actor.id" class="mx-3">
+            <router-link :to="{name:'ActorView', params:{name:actor.name, id:String(actor.id)}}" class="text-decoration-none">
+              <span>
+                {{ actor.name }}
+              </span>
+            </router-link>
+          </div>
+        </div>
+      </div>
     </div>
+    <br>
     <b-button v-b-toggle.collapse-1 variant="primary">리뷰영상 보기</b-button>
     <b-collapse id="collapse-1">
       <div class="ratio ratio-16x9 m-5" v-for="(reviewVid,index) in reviewVideos" :key="`r-${index}`">
@@ -144,6 +163,24 @@ export default {
 
 <style>
 .poster {
-  height: 50rem;
+  width: 100%;
 }
+
+#trailer-box {
+  height: auto;
+}
+
+#poster-box {
+  border-radius: 10px;
+}
+
+#movie-info-box {
+  margin-top: 50px;
+}
+
+#ytplayer {
+  width: 100%;
+  min-height: 80vh;
+}
+
 </style>

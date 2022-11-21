@@ -1,13 +1,27 @@
 <template>
-  <div>
-    <h5>{{ comment.title }}</h5>
-    <p>{{ comment.content }}</p>
-    <p>작성자 : {{comment.user.username}}</p>
-    <p>작성일시 : {{ comment.created_at }}</p>
-    <button v-if="isOwner" @click=deleteComment(comment.id)>X</button>
+  <div class="container" id="comment-list">
+    <div class="row">
+      <div class="col-2" id="comment-writer">
+        <font-awesome-icon class="fa-2xl" icon="fa-solid fa-user" />
+        <p>{{comment.user.username}}</p>
+      </div>
+      <div class="col-10">
+        <span class="me-4" id="comment-title">{{ comment.title }}</span>     
+        <span>{{ comment.created_at }}</span>
+        <p>{{ comment.content }}</p>
+      </div>
+        <button class="btn btn-dark" v-if="isOwner" @click=deleteComment(comment.id)>X</button>
+    </div>
+    <div class="row d-flex">
+      <div class="col-11">
+      </div>
+      <div class="col-1">
+      </div>
+    </div>
   </div>
 </template>
   
+<script src="https://kit.fontawesome.com/7d4867f205.js" crossorigin="anonymous"></script>
 <script>
 import axios from 'axios'
 
@@ -43,3 +57,22 @@ export default {
   }
 }
 </script>
+
+<style>
+#comment-list {
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+#comment-title {
+  font-weight: bold ;
+}
+
+#comment-writer {
+  display: flex;
+  text-align: center;
+  align-content: center;
+  flex-direction: column;
+}
+</style>
