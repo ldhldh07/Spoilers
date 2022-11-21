@@ -34,6 +34,8 @@
       </div>
     </b-collapse>
     <br>
+    <button v-if="!isWish" class="btn btn-warning" @click="addWishList">위시리스트추가</button>
+    <button v-else class="btn btn-warning" @click="addWishList">위시리스트제거</button>
     <CommentList
       :movieId = 'movie?.id'
       :comments = comments
@@ -55,6 +57,24 @@ export default {
   components: {
     CommentList,
   },
+  data() {
+    return {
+      movie: null,
+      poster: null,
+      trailerSrc: null,
+      reviewVideos: Array,
+    }
+  },
+  computed: {
+    comments() {
+      return this.movie?.comment_set
+    },
+    isWish() {
+      const movieId = this.movie?.id
+      const userWishList = this.$store.state.user?.wish_list
+      return userWishList?.includes(movieId) ? true : false
+    },
+  },
   created() {
     this.getMovieDetail()
   },
@@ -65,7 +85,6 @@ export default {
         url: `${API_URL}/api/movies/${this.$route.params.id}/`
       })
         .then((res) => {
-          console.log(res)
           this.movie = res.data
           this.reviewSearch(this.movie.movie_title+" 영화 리뷰")
           this.poster = "https://image.tmdb.org/t/p/original" + this.movie.poster_path
@@ -85,27 +104,35 @@ export default {
         }
       })
         .then(result =>{
-          console.log(result)
           this.reviewVideos= result.data.items
         })
         .catch(error=> {
         console.log(error)
         })
+    },
+    addWishList() {
+      const movieId = this.movie.id
+      const userId = this.$store.state.user.id
+      axios({
+        method: 'post',
+        url: `${API_URL}/api/community/${movieId}/wish/`,
+        data: {
+          user_id: userId,
+        },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
+      })
+        .then(() => {
+          this.getMovieDetail()
+          const key = this.$store.state.token
+          this.$store.dispatch('getUserDetail', key)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   },
-  data() {
-    return {
-      movie: null,
-      poster: null,
-      trailerSrc: null,
-      reviewVideos: Array,
-    }
-  },
-  computed: {
-    comments() {
-      return this.movie?.comment_set
-    }
-  }
 }
 </script>
 

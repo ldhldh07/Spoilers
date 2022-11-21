@@ -17,12 +17,12 @@ from rest_framework.permissions import IsAuthenticated
 @permission_classes([IsAuthenticated])
 def comment_create(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
-    serialzer = CommentSerializer(data=request.data)
+    serializer = CommentSerializer(data=request.data)
     user_pk = request.data.get('user_id')
     user = get_object_or_404(get_user_model(), pk=user_pk)
-    if serialzer.is_valid(raise_exception=True):
-        serialzer.save(movie=movie, user=user)
-        return Response(serialzer.data, status=status.HTTP_201_CREATED)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(movie=movie, user=user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
@@ -37,3 +37,17 @@ def comment_update(request, comment_pk):
     #     if serializer.is_valid(raise_exception=True):
     #         serializer.save()
     #         return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def wish(request, movie_pk):
+    user_pk = request.data.get('user_id')
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    user = get_object_or_404(get_user_model(), pk=user_pk)
+    print(user.wish_list)
+    if user.wish_list.filter(pk=movie_pk).exists():
+        user.wish_list.remove(movie)
+        return Response(status=status.HTTP_200_OK)
+    else:
+        user.wish_list.add(movie)
+        return Response(status=status.HTTP_201_CREATED)

@@ -11,7 +11,6 @@ from rest_framework.authtoken.models import Token
 
 @api_view(['POST'])
 def user_detail(request):
-    print(request.data)
     key = request.data.get('key')
     token = get_object_or_404(Token, key=key)
     user_pk = token.user_id
