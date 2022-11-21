@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <h1>Spoilers!</h1>
+    <b-navbar type="dark" variant="primary">
+      <b-navbar-brand>Spoilers</b-navbar-brand>
+
+    </b-navbar>
+    <!--
     <h2 v-if="isLogIn"> {{ user?.username }}님 안녕하세용</h2>
     <nav>
       <router-link to="/">인기순 보기</router-link> |
@@ -13,7 +17,7 @@
       </span>
       <router-link to="/genre">장르별 보기</router-link> |
       <router-link to="/new">최신순 보기</router-link> |
-    </nav>
+    </nav> -->
     <router-view/>
   </div>
 </template>
