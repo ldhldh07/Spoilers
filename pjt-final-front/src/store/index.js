@@ -81,6 +81,7 @@ export default new Vuex.Store({
           username: payload.username,
           password1: payload.password1,
           password2: payload.password2,
+          email: payload.email,
         }
       })
       .then((response)=>{

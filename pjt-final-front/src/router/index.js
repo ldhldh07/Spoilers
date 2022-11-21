@@ -83,4 +83,16 @@ const router = new VueRouter({
   }
 })
 
+// router.beforeEach((to, from, next) => {
+//   const isLoggedIn = false
+//   const allowAllPaged=['login']
+//   const isAuthRequired = !allowAllPaged.includes(to.name)
+
+//   if (isAuthRequired && !isLoggedIn) {
+//     next({ name: 'login'})
+//   } else {
+//     next()
+//   }
+// })
+
 export default router
