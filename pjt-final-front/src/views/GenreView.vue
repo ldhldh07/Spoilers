@@ -1,6 +1,6 @@
 <template>
   <div class="genre">
-    <h1>{{genre}} 영화</h1>
+    <h1 id="main">{{genre}} 영화</h1>
     <GenreMovieList
       :genre-code="genreCode"
     />
@@ -31,3 +31,9 @@ export default {
   }
 }
 </script>
+
+<style>
+#main {
+  font-weight: bold;
+}
+</style>
