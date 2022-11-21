@@ -44,7 +44,6 @@ def wish(request, movie_pk):
     user_pk = request.data.get('user_id')
     movie = get_object_or_404(Movie, pk=movie_pk)
     user = get_object_or_404(get_user_model(), pk=user_pk)
-    print(user.wish_list)
     if user.wish_list.filter(pk=movie_pk).exists():
         user.wish_list.remove(movie)
         return Response(status=status.HTTP_200_OK)

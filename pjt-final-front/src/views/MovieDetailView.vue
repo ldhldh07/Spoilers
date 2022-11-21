@@ -34,8 +34,10 @@
       </div>
     </b-collapse>
     <br>
-    <button v-if="!isWish" class="btn btn-warning" @click="addWishList">위시리스트추가</button>
-    <button v-else class="btn btn-warning" @click="addWishList">위시리스트제거</button>
+    <div v-if="isLogIn">
+      <button v-if="!isWish" class="btn btn-warning" @click="addWishList">위시리스트추가</button>
+      <button v-else class="btn btn-warning" @click="addWishList">위시리스트제거</button>
+    </div>
     <CommentList
       :movieId = 'movie?.id'
       :comments = comments
@@ -68,6 +70,9 @@ export default {
   computed: {
     comments() {
       return this.movie?.comment_set
+    },
+    isLogIn() {
+      return this.$store.getters.isLogIn
     },
     isWish() {
       const movieId = this.movie?.id
