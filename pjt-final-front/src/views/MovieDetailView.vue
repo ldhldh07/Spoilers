@@ -10,7 +10,7 @@
       </iframe>
     </div>
     <div class="row" id="movie-info-box">
-      <div class="col-4" id="poster-box">
+      <div class="col-4" id="detail-poster-box">
         <img :src="poster" alt="movie-poster" class="rounded poster">
       </div>
       <div class="col-8" id="movie-title-content">
@@ -19,7 +19,7 @@
           <div v-if="isLogIn" @click="addWishList" id="wish-icon" style="cursor: pointer">
             <font-awesome-icon icon="fa-regular fa-heart" v-if="!isWish" class="fa-2xl"/>
             <font-awesome-icon icon="fa-solid fa-heart" v-else class="fa-2xl"/>
-            <span>wish list</span>
+            <span style="white-space:nowrap">wish list</span>
           </div>
         </div>
         <p> {{ movie?.overview }}</p>
@@ -172,7 +172,7 @@ export default {
   width: 100%;
 }
 
-#poster-box {
+#detail-poster-box {
   border-radius: 10px;
 }
 

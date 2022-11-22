@@ -1,7 +1,9 @@
 <template>
   <div class="figure col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2">
     <router-link :to="{ name: 'MovieDetailView', params: { id: movie.id } }" class="text-decoration-none">
-      <img :src="poster" alt="movie-poster" class="thumbnail rounded">
+      <div id="poster-box">
+        <img :src="poster" alt="movie-poster" class="rounded thumbnail">
+      </div>
       <figcaption class="caption text-nowrap"> {{movie.movie_title}} </figcaption>
     </router-link>
   </div>
@@ -26,11 +28,16 @@ export default {
 .figure {
   margin-bottom: 55px;
   padding-right: 1.5rem;
-  overflow: hidden;
+}
+
+.thumbnail:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
 }
 
 .thumbnail{
   width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -41,4 +48,9 @@ export default {
   font-size: large
 }
 
+#poster-box {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+}
 </style>
