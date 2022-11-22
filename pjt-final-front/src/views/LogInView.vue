@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column align-items-center">
-    <h1>로그인</h1>
+    <h3>로그인</h3>
     <form @submit.prevent="logIn">
       <!-- <label for="email">email : </label>
       <input type="email" id="email" v-model="email"><br> -->

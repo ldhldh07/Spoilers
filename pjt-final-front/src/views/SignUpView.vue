@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column align-items-center">
-    <h1>회원가입</h1>
+    <h3>회원가입</h3>
     <form @submit.prevent="signUp">
       <label class="form-label" for="username">username : </label>
       <input class="form-control" type="text" id="username" v-model="username"><br>

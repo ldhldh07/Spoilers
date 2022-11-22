@@ -41,6 +41,7 @@ export default new Vuex.Store({
       }
     },
     GET_USER_DETAIL(state, user) {
+      console.log(user.comment_set)
       state.user = user
     },
     LOG_OUT(state) {
