@@ -52,5 +52,6 @@ export default {
   width: 100%;
   aspect-ratio: 2 / 3;
   overflow: hidden;
+  border-radius: 10px;
 }
 </style>

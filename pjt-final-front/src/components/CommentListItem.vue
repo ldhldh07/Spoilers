@@ -13,7 +13,7 @@
     </div>
       <button
         id="delete-button"
-        class="btn btn-dark"
+        class="btn btn-dark btn-sm"
         v-if="isOwner"
         @click=deleteComment(comment.id)
       >

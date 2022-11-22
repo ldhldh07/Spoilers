@@ -16,7 +16,7 @@
       <div class="col-8" id="movie-title-content">
         <div id="title-wish">
           <h1 id="movie-title"> {{ movie?.movie_title }}</h1>
-          <div v-if="isLogIn" @click="addWishList" id="wish-icon" style="cursor: pointer">
+          <div v-if="isLogIn" @click="addWishList" id="wish-icon" style="cursor: pointer" class="pb-2">
             <font-awesome-icon icon="fa-regular fa-heart" v-if="!isWish" class="fa-2xl"/>
             <font-awesome-icon icon="fa-solid fa-heart" v-else class="fa-2xl"/>
             <span style="white-space:nowrap">wish list</span>
@@ -49,20 +49,22 @@
       </div>
     </div>
     <br>
-    <div>
-      <b-button v-b-toggle.collapse-1 variant="primary" @click.once="reviewSearch(movie.movie_title+'영화 리뷰')">리뷰영상 보기</b-button>
-      <b-collapse id="collapse-1">
-        <div class="ratio ratio-16x9 m-3" v-for="(reviewVid,index) in reviewVideos" :key="`r-${index}`">
-          <iframe :src="`https://youtube.com/embed/${reviewVid.id.videoId}`" allowfullscreen></iframe>
-        </div>
-      </b-collapse>
-      <br>
-      <CommentList
-        :movieId = 'movie?.id'
-        :comments = comments
-        @update-comment-list="getMovieDetail"
-        />
+    <hr>
+    <div class="d-flex justify-content-start">
+      <font-awesome-icon v-b-toggle.collapse-1 @click.once="reviewSearch(movie.movie_title+'영화 리뷰')" icon="fa-brands fa-youtube" id="icon"/>
+      <span class="align-self-center fs-4">&nbsp;&nbsp;&nbsp;리뷰 영상 보기</span>
     </div>
+    <b-collapse id="collapse-1">
+      <div class="vid ratio ratio-16x9 m-3" v-for="(reviewVid,index) in reviewVideos" :key="`r-${index}`">
+        <iframe :src="`https://youtube.com/embed/${reviewVid.id.videoId}`" allowfullscreen></iframe>
+      </div>
+    </b-collapse>
+    <hr>
+    <CommentList
+      :movieId = 'movie?.id'
+      :comments = comments
+      @update-comment-list="getMovieDetail"
+      />
   </div>
 </template>
 
@@ -210,4 +212,15 @@ export default {
 #actorsName {
   color: #333d51
 }
+
+#icon {
+  width: 65px;
+  height: auto;
+  cursor: pointer;
+}
+
+#vid{
+  width: 45vw;
+}
+
 </style>

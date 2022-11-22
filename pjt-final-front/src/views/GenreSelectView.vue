@@ -40,7 +40,6 @@ export default {
 .genre-box {
   display: flex;
   border-block-end: 2px solid black;
-  width: 300px;
   height: 168.75px;
   font-weight: bold;
   justify-content: center;
