@@ -21,7 +21,6 @@
   </div>
 </template>
   
-<script src="https://kit.fontawesome.com/7d4867f205.js" crossorigin="anonymous"></script>
 <script>
 import axios from 'axios'
 
