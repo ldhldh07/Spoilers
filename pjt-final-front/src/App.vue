@@ -5,7 +5,30 @@
       <b-navbar-nav>
         <b-nav-item to="/home">인기</b-nav-item>
         <b-nav-item to="/new">최신</b-nav-item>
-        <b-nav-item to="/genre">장르</b-nav-item>
+        <div class="genre">
+          <b-nav-item to="/genre" id="genre-text">장르</b-nav-item>
+          <div class="genre-dropdown" aria-labelledby="genre-text">
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+            <a class="dropdown-item" href="#">장르</a>
+          </div>
+        </div>
       </b-navbar-nav>
       <b-navbar-nav v-if="!isLogIn" class="ms-auto">
         <b-nav-item :to="{ name: 'LogInView', query: { next: fromPath } }" >로그인</b-nav-item>
@@ -126,5 +149,31 @@ export default {
   width: 30px;
   height: 30px;
   cursor: pointer;
+}
+
+
+.genre:hover .genre-dropdown {
+  display: block;
+}
+
+
+.genre-dropdown {
+  border-radius: 5px;
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.genre-dropdown a:hover {
+  background-color: #ddd;
+}
+
+.genre-dropdown > a {
+  border-radius: 5px;
+  padding: 5px;
+  padding-left: 10px;
 }
 </style>
