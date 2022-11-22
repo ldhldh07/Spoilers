@@ -5,30 +5,7 @@
       <b-navbar-nav>
         <b-nav-item to="/home">인기</b-nav-item>
         <b-nav-item to="/new">최신</b-nav-item>
-        <div class="genre">
-          <b-nav-item to="/genre" id="genre-text">장르</b-nav-item>
-          <div class="genre-dropdown" aria-labelledby="genre-text">
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-          </div>
-        </div>
+        <b-nav-item to="/genre" id="genre-text">장르</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav v-if="!isLogIn" class="ms-auto">
         <b-nav-item :to="{ name: 'LogInView', query: { next: fromPath } }" >로그인</b-nav-item>

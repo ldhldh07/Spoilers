@@ -2,10 +2,7 @@
   <div id="comment-list">
     <div id="comment">
       <div id="comment-writer">
-        <router-link :to="{ name: 'ProfileView', params: { username: comment.user.username } }" id="profile-link">
-          <font-awesome-icon class="fa-2xl" icon="fa-solid fa-user" />
-          <p>{{comment.user.username}}</p>
-        </router-link>
+        <img :src="posterPath" alt="movie-poster" class="rounded">
       </div>
       <div id="comment-content">
         <span class="me-4" id="comment-title">{{ comment.title }}</span>     
@@ -16,7 +13,6 @@
       <button
         id="delete-button"
         class="btn btn-dark"
-        v-if="isOwner"
         @click=deleteComment(comment.id)
       >
       X
@@ -36,9 +32,6 @@ export default {
     comment: Object,
   },
   computed: {
-    isOwner() {
-      return this.$store.state.user?.id === this.comment.user.id ? true : false
-    },
     commentCreatedAt() {
       const createdDate = new Date(this.comment.created_at)
       const now = new Date()
@@ -57,6 +50,9 @@ export default {
         diffText = `${createdDate.getFullYear()}/${createdDate.getMonth()+1}/${createdDate.getDate()}`
       }
       return diffText
+    },
+    posterPath() {
+      return "https://image.tmdb.org/t/p/original" + this.comment.movie.poster_path
     }
   },
   methods: {
@@ -111,10 +107,5 @@ export default {
 
 #comment-content {
   margin-left: 20px;
-}
-
-#profile-link {
-  color : #333d51;
-  text-decoration: none;
 }
 </style>
