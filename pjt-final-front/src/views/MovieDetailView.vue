@@ -17,8 +17,15 @@
       <div class="col-4" id="poster-box">
         <img :src="poster" alt="movie-poster" class="rounded poster">
       </div>
-      <div class="col-8">
-        <h1> {{ movie?.movie_title }}</h1>
+      <div class="col-8" id="movie-title-content">
+        <div id="title-wish">
+          <h1 id="movie-title"> {{ movie?.movie_title }}</h1>
+          <div v-if="isLogIn" @click="addWishList" id="wish-icon" style="cursor: pointer">
+            <font-awesome-icon icon="fa-regular fa-heart" v-if="!isWish" class="fa-2xl"/>
+            <font-awesome-icon icon="fa-solid fa-heart" v-else class="fa-2xl"/>
+            <span>wish list</span>
+          </div>
+        </div>
         <p> {{ movie?.overview }}</p>
         <p>개봉일 : {{ movie?.date_opened }}</p>
         <span>장르: </span>
@@ -46,17 +53,13 @@
       </div>
     </div>
     <br>
-    <b-button v-b-toggle.collapse-1 variant="primary">리뷰영상 보기</b-button>
+    <b-button v-b-toggle.collapse-1 variant="primary" id="review-view">리뷰영상 보기</b-button>
     <b-collapse id="collapse-1">
       <div class="ratio ratio-16x9 m-5" v-for="(reviewVid,index) in reviewVideos" :key="`r-${index}`">
         <iframe :src="`https://youtube.com/embed/${reviewVid.id.videoId}`" frameborder="0"></iframe>
       </div>
     </b-collapse>
     <br>
-    <div v-if="isLogIn">
-      <button v-if="!isWish" class="btn btn-warning" @click="addWishList">위시리스트추가</button>
-      <button v-else class="btn btn-warning" @click="addWishList">위시리스트제거</button>
-    </div>
     <CommentList
       :movieId = 'movie?.id'
       :comments = comments
@@ -96,7 +99,10 @@ export default {
     isWish() {
       const movieId = this.movie?.id
       const userWishList = this.$store.state.user?.wish_list
-      return userWishList?.includes(movieId) ? true : false
+      const isWish = userWishList?.some((userWishMovie)=> {
+        return movieId === userWishMovie.id
+      })
+      return isWish ? true : false
     },
   },
   created() {
@@ -183,4 +189,26 @@ export default {
   min-height: 80vh;
 }
 
+#movie-title {
+  margin-bottom: 20px;
+}
+
+#title-wish {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#review-view {
+  margin-bottom: 20px;
+}
+
+#wish-icon {
+  display: flex;
+  flex-direction: column;
+}
+
+#movie-title-content {
+  padding-left: 30px ;
+}
 </style>

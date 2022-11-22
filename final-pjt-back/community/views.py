@@ -24,6 +24,7 @@ def comment_create(request, movie_pk):
         serializer.save(movie=movie, user=user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def comment_update(request, comment_pk):
@@ -37,6 +38,7 @@ def comment_update(request, comment_pk):
     #     if serializer.is_valid(raise_exception=True):
     #         serializer.save()
     #         return Response(serializer.data)
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])

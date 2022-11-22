@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Movie, Actor, Genre
-from community.serializers import CommentSerializer
 from accounts.serializers import UserCommentSerializer
+from community.serializers import CommentSerializer
 
 class ActorSerializer(serializers.ModelSerializer):
     class Meta:
