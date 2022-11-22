@@ -1,27 +1,27 @@
 <template>
-  <div class="container" id="comment-list">
-    <div class="row">
-      <div class="col-2" id="comment-writer">
+  <div id="comment-list">
+    <div id="comment">
+      <div id="comment-writer">
         <font-awesome-icon class="fa-2xl" icon="fa-solid fa-user" />
         <p>{{comment.user.username}}</p>
       </div>
-      <div class="col-10">
+      <div id="comment-content">
         <span class="me-4" id="comment-title">{{ comment.title }}</span>     
-        <span>{{ comment.created_at }}</span>
+        <span>{{ commentCreatedAt }}</span>
         <p>{{ comment.content }}</p>
       </div>
-        <button class="btn btn-dark" v-if="isOwner" @click=deleteComment(comment.id)>X</button>
     </div>
-    <div class="row d-flex">
-      <div class="col-11">
-      </div>
-      <div class="col-1">
-      </div>
-    </div>
+      <button
+        id="delete-button"
+        class="btn btn-dark"
+        v-if="isOwner"
+        @click=deleteComment(comment.id)
+      >
+      X
+      </button>
   </div>
 </template>
   
-<script src="https://kit.fontawesome.com/7d4867f205.js" crossorigin="anonymous"></script>
 <script>
 import axios from 'axios'
 
@@ -36,6 +36,25 @@ export default {
   computed: {
     isOwner() {
       return this.$store.state.user?.id === this.comment.user.id ? true : false
+    },
+    commentCreatedAt() {
+      const createdDate = new Date(this.comment.created_at)
+      const now = new Date()
+      const timeDiff = now.getTime() - createdDate.getTime()
+
+      var diffText
+      if (timeDiff / (1000 * 60) < 1) {
+        diffText = `${parseInt(timeDiff / 1000) }초 전`
+      } else if (timeDiff / (1000 * 60 * 60) < 1) {
+        diffText = `${parseInt(timeDiff / (1000 * 60)) }분 전`
+      } else if (timeDiff / (1000 * 60 * 60 * 24) < 1) {
+        diffText = `${parseInt(timeDiff / (1000 * 60 * 60)) }시간 전`
+      } else if (timeDiff / (1000 * 60 * 60 * 24 * 30) < 1) {
+        diffText = `${parseInt(timeDiff / (1000 * 60 * 60 * 24)) }일 전`
+      } else {
+        diffText = `${createdDate.getFullYear()}/${createdDate.getMonth()+1}/${createdDate.getDate()}`
+      }
+      return diffText
     }
   },
   methods: {
@@ -63,6 +82,8 @@ export default {
   margin: 5px;
   padding: 5px;
   border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 #comment-title {
@@ -73,6 +94,20 @@ export default {
   display: flex;
   text-align: center;
   align-content: center;
+  justify-content: center;
   flex-direction: column;
+  width: 60px;
+}
+
+#comment {
+  display: flex;
+}
+
+#delete-button {
+  margin-bottom: 50px;
+}
+
+#comment-content {
+  margin-left: 20px;
 }
 </style>

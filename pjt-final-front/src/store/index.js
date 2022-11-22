@@ -99,6 +99,11 @@ export default new Vuex.Store({
       })
       .catch((error)=>{
         console.log(error)
+        const errorMessage = error.response.data
+        console.log(errorMessage)
+        if (errorMessage.username) {
+          alert('ID를 입력해주세요')
+        }
       })
     },
     logIn(context, payload) {

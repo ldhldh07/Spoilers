@@ -7,25 +7,28 @@
       :comment="comment"
       @update-comment-list="updateCommentList"
     />
-    <div v-if="isLogIn">
-      <p>댓글 작성</p>
+    <div v-if="isLogIn" id="comment-form">
       <form @submit.prevent="createComment">
-            <label class="form-label" for="title"> 제목 </label>
-            <input class="form-control" type="text" id="title" v-model.trim="title"><br>
-            <label class="form-label" for="content">내용 </label>
-            <textarea
-              class="form-control"
-              id="content"
-              cols="10"
-              rows="5"
-              v-model.trim="content"
-            >
-            </textarea>
-            <div id="comment-area">
-              <input class="btn btn-warning" type="submit" id="submit-button" value="입력">        
-            </div>
+        <label class="form-label" for="comments-title"> 제목 </label>
+        <input class="form-control" type="text" id="comments-title" v-model.trim="title"><br>
+        <label class="form-label" for="comments-content">내용 </label>
+        <textarea
+          class="form-control"
+          id="comments-content"
+          cols=40
+          rows=5
+          v-model.trim="content"
+          style="text"
+        ></textarea>
+        <div id="comment-area">
+          <input class="btn btn-warning" type="submit" id="submit-button" value="입력">        
+        </div>
       </form>
     </div>
+    <div v-else>
+      <br><br>
+    </div>
+    <br><br>
   </div>
 </template>
 
