@@ -45,7 +45,8 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   color: #333d51;
-  font-size: large
+  font-size: large;
+  font-weight: 400;
 }
 
 #poster-box {

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="d-flex justify-content-start">
-      <font-awesome-icon icon="fa-solid fa-comment" id="commenticon"/>
+    <div class="d-flex justify-content-start" id="divisionbar">
+      <font-awesome-icon icon="fa-solid fa-comment" id="justicon"/>
       <span class="align-self-center fs-4">&nbsp;&nbsp;&nbsp;스포일러 한마디</span>
     </div>
     <br>
@@ -13,7 +13,7 @@
     />
     <div class="d-flex justify-content-end">
       <button class="btn btn-outline-dark" v-b-toggle.comment-form>
-        나도 한마디!
+        스포일러 남기기
       </button>
     </div>
     <b-collapse v-if="isLogIn" id="comment-form" class="collapse">
@@ -117,8 +117,4 @@ export default {
   flex-direction: row-reverse;
 }
 
-#commenticon {
-  width: 60px;
-  height: auto;
-}
 </style>

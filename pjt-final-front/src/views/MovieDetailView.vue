@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <div class="d-flex justify-content-start" id="divisionbar">
+      <font-awesome-icon icon="fa-solid fa-clapperboard" id="justicon"/>
+      <span class="align-self-center fs-3">&nbsp;&nbsp;&nbsp;영화 정보</span>
+    </div>
+    <hr>
     <div class="ratio ratio-16x9">
       <iframe
         id="ytplayer" 
@@ -48,10 +53,9 @@
         </div>
       </div>
     </div>
-    <br>
     <hr>
-    <div class="d-flex justify-content-start">
-      <font-awesome-icon v-b-toggle.collapse-1 @click.once="reviewSearch(movie.movie_title+'영화 리뷰')" icon="fa-brands fa-youtube" id="icon"/>
+    <div class="d-flex justify-content-start" id="divisionbar" v-b-toggle.collapse-1 @click.once="reviewSearch(movie.movie_title+'영화 리뷰')">
+      <font-awesome-icon icon="fa-brands fa-youtube" id="icon"/>
       <span class="align-self-center fs-4">&nbsp;&nbsp;&nbsp;리뷰 영상 보기</span>
     </div>
     <b-collapse id="collapse-1">
@@ -216,11 +220,22 @@ export default {
 #icon {
   width: 65px;
   height: auto;
+  color: #d42a24;
   cursor: pointer;
+}
+
+#justicon {
+  width: 60px;
+  height: auto;
 }
 
 #vid{
   width: 45vw;
+}
+
+#divisionbar {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 </style>
