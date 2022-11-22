@@ -1,16 +1,16 @@
 <template>
-  <div>
-    <h1>LogIn Page</h1>
+  <div class="d-flex flex-column align-items-center">
+    <h1>로그인</h1>
     <form @submit.prevent="logIn">
       <!-- <label for="email">email : </label>
       <input type="email" id="email" v-model="email"><br> -->
-      <label for="username">name : </label>
-      <input type="text" id="username" v-model="username"><br>
+      <label class="form-label" for="username">name : </label>
+      <input class="form-control" type="text" id="username" v-model="username"><br>
 
-      <label for="password"> password : </label>
-      <input type="password" id="password" v-model="password"><br>
+      <label class="form-label" for="password"> password : </label>
+      <input class="form-control" type="password" id="password" v-model="password"><br>
 
-      <input type="submit" value="logIn">
+      <input class="btn btn-warning" type="submit" value="logIn">
     </form>
   </div>
 </template>

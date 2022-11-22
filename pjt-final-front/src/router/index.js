@@ -33,21 +33,12 @@ const routes = [
     component: () => import('../views/GenreView.vue')
   },
 
-  // {
-  //   path: '/profile/:id/:username',
-  //   // 미인증 시 라우터가드로 로그인 페이지로 이동시킬 것.
-  //   name: 'ProfileView',
-  //   component: () => import('../views/ProfileView.vue'),
-  //   beforeEnter(to,from,next) {
-  //     //로그인 여부 확인하는 방법 확인해두기
-  //     const login = true
-  //     if (login === false) {
-  //       next({name:'LogInView'})
-  //     } else {
-  //       next()
-  //     }
-  //   }
-  // },
+  {
+    path: '/profile/:username',
+    // 미인증 시 라우터가드로 로그인 페이지로 이동시킬 것.
+    name: 'ProfileView',
+    component: () => import('../views/ProfileView.vue'),
+  },
 
   {
     path: '/moviedetail/:id',

@@ -49,7 +49,7 @@ export default {
   },
   props:{
     isNew: Boolean,
-  }
+  },
 }
 </script>
 

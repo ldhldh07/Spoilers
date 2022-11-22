@@ -1,20 +1,19 @@
 <template>
-  <div>
-    <h1>Sign Up Page</h1>
+  <div class="d-flex flex-column align-items-center">
+    <h1>회원가입</h1>
     <form @submit.prevent="signUp">
-      <label for="username">username : </label>
-      <input type="text" id="username" v-model="username"><br>
+      <label class="form-label" for="username">username : </label>
+      <input class="form-control" type="text" id="username" v-model="username"><br>
       
-      <label for="username">email : </label>
-      <input type="email" id="email" v-model="email"><br>
+      <label class="form-label" for="username">email : </label>
+      <input class="form-control" type="email" id="email" v-model="email"><br>
 
-      <label for="password1"> password : </label>
-      <input type="password" id="password1" v-model="password1"><br>
+      <label class="form-label" for="password1"> password : </label>
+      <input class="form-control" type="password" id="password1" v-model="password1"><br>
 
-      <label for="password2"> password confirmation : </label>
-      <input type="password" id="password2" v-model="password2">
-      
-      <input type="submit" value="SignUp">
+      <label class="form-label" for="password2"> password confirmation : </label>
+      <input class="form-control" type="password" id="password2" v-model="password2"><br>
+      <input class="btn btn-warning" type="submit" value="SignUp">
     </form>
   </div>
 </template>

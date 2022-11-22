@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <b-navbar fixed="top" type="dark" id="bar" class="text-nowrap">
-      <b-navbar-brand id="title" to="/home">Spoilers</b-navbar-brand>
+      <b-navbar-brand id="logo" to="/home">Spoilers</b-navbar-brand>
       <b-navbar-nav>
         <b-nav-item to="/home">인기</b-nav-item>
         <b-nav-item to="/new">최신</b-nav-item>
@@ -12,15 +12,25 @@
         <b-nav-item :to="{ name: 'SignUpView', query: { next: fromPath } }" >회원가입</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav v-else class="ms-auto">
-        <a href="#" @click="logOut">로그아웃</a>
+        <b-nav-item :to="{ name: 'ProfileView', params: { username: this.user.username } }">
+          <font-awesome-icon icon="fa-solid fa-user" />
+          {{this.user.username}}
+        </b-nav-item>
+        <b-nav-item href="#" @click="logOut">로그아웃</b-nav-item>
       </b-navbar-nav>
     </b-navbar>
     <b-modal ref="logout" hide-footer hide-header-close title="로그아웃">
       <p class="my-4">성공적으로 로그아웃 되었습니다.</p>
     </b-modal>
     <router-view id="content"/>
+    <font-awesome-icon 
+      id="up"
+      icon="fa-solid fa-circle-chevron-up"
+      @click="scrollinit"
+       />
   </div>
 </template>
+
 <script>
 export default {
   data() {
@@ -42,10 +52,18 @@ export default {
     logOut() {
       this.$refs['logout'].show()
       this.$store.commit('LOG_OUT')
+    },
+    scrollinit() {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
     }
   },
 }
 </script>
+
 
 <style>
 @font-face {
@@ -62,7 +80,7 @@ export default {
   font-style: normal;
 }
 
-#title {
+#logo {
   font-family: 'PyeongChangPeace-Bold';
 }
 
@@ -99,5 +117,14 @@ export default {
 
 #content{
   padding-top: 120px;
+}
+
+#up{
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
 }
 </style>

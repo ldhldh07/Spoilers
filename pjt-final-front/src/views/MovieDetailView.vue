@@ -1,17 +1,13 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-12" id="trailer-box">
-        <iframe
-          id="ytplayer" 
-          type="text/html" 
-          class= "ratio ratio-16x9"
-          :src="trailerSrc"
-          frameborder="0"
-          allowfullscreen
-        >
-        </iframe>
-      </div>
+    <div class="ratio ratio-16x9">
+      <iframe
+        id="ytplayer" 
+        type="text/html" 
+        :src="trailerSrc"
+        allowfullscreen
+      >
+      </iframe>
     </div>
     <div class="row" id="movie-info-box">
       <div class="col-4" id="poster-box">
@@ -42,9 +38,9 @@
         <br><br>
         <p>출연 배우 : </p>
         <div class="d-flex flex-wrap">
-          <div v-for="actor in movie?.starring" :key="actor.id" class="mx-3">
+          <div v-for="actor in movie?.starring" :key="actor.id" class="me-3">
             <router-link :to="{name:'ActorView', params:{name:actor.name, id:String(actor.id)}}" class="text-decoration-none">
-              <span>
+              <span id="actorsName">
                 {{ actor.name }}
               </span>
             </router-link>
@@ -53,18 +49,20 @@
       </div>
     </div>
     <br>
-    <b-button v-b-toggle.collapse-1 variant="primary" id="review-view">리뷰영상 보기</b-button>
-    <b-collapse id="collapse-1">
-      <div class="ratio ratio-16x9 m-5" v-for="(reviewVid,index) in reviewVideos" :key="`r-${index}`">
-        <iframe :src="`https://youtube.com/embed/${reviewVid.id.videoId}`" frameborder="0"></iframe>
-      </div>
-    </b-collapse>
-    <br>
-    <CommentList
-      :movieId = 'movie?.id'
-      :comments = comments
-      @update-comment-list="getMovieDetail"
-      />
+    <div>
+      <b-button v-b-toggle.collapse-1 variant="primary" @click.once="reviewSearch(movie.movie_title+'영화 리뷰')">리뷰영상 보기</b-button>
+      <b-collapse id="collapse-1">
+        <div class="ratio ratio-16x9 m-3" v-for="(reviewVid,index) in reviewVideos" :key="`r-${index}`">
+          <iframe :src="`https://youtube.com/embed/${reviewVid.id.videoId}`" allowfullscreen></iframe>
+        </div>
+      </b-collapse>
+      <br>
+      <CommentList
+        :movieId = 'movie?.id'
+        :comments = comments
+        @update-comment-list="getMovieDetail"
+        />
+    </div>
   </div>
 </template>
 
@@ -74,7 +72,7 @@ import axios from 'axios'
 
 const API_URL = 'http://127.0.0.1:8000'
 const URL = "https://www.googleapis.com/youtube/v3/search"
-const API_KEY = "AIzaSyArNN1EdBS-8JxzjJLvBNtA1lRYR7w8MPs"
+const API_KEY = "AIzaSyCvN-sRJ2uXtEcwbYqLCvS3NRAoqH70LK4"
 
 export default {
   name: 'MovieDetailView',
@@ -116,7 +114,6 @@ export default {
       })
         .then((res) => {
           this.movie = res.data
-          this.reviewSearch(this.movie.movie_title+" 영화 리뷰")
           this.poster = "https://image.tmdb.org/t/p/original" + this.movie.poster_path
           this.trailerSrc = "https://www.youtube.com/embed/" + this.movie.trailer_key
         })
@@ -129,11 +126,14 @@ export default {
         params: {
           key: API_KEY,
           type: 'video',
-          part: 'snippet',
-          q: movieTitle
+          part: 'id',
+          q: movieTitle,
+          videoEmbeddable: 'true',
+          maxResults: 6
         }
       })
         .then(result =>{
+          console.log(result)
           this.reviewVideos= result.data.items
         })
         .catch(error=> {
@@ -172,10 +172,6 @@ export default {
   width: 100%;
 }
 
-#trailer-box {
-  height: auto;
-}
-
 #poster-box {
   border-radius: 10px;
 }
@@ -186,7 +182,6 @@ export default {
 
 #ytplayer {
   width: 100%;
-  min-height: 80vh;
 }
 
 #movie-title {
@@ -210,5 +205,9 @@ export default {
 
 #movie-title-content {
   padding-left: 30px ;
+}
+
+#actorsName {
+  color: #333d51
 }
 </style>
