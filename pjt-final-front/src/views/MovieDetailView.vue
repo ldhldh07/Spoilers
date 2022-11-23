@@ -54,14 +54,19 @@
       <span class="align-self-center fs-4">&nbsp;&nbsp;&nbsp;리뷰 영상 보기</span>
     </div>
     <b-collapse id="collapse-1">
-      <div class="me-1 col-6" v-for="(reviewVid,index) in reviewVideos" :key="`r-${index}`">
-        <div class="ratio ratio-16x9">
-          <iframe :src="`https://youtube.com/embed/${reviewVid.video_id}`" allowfullscreen></iframe>
+      <font-awesome-icon icon="fa-solid fa-angle-left" id="lefbtn" @click="videoSlideToLeft"/>  
+      <font-awesome-icon icon="fa-solid fa-angle-right" id="rigbtn" @click="videoSlideToRight"/>
+      <div id="scrollbar">
+        <div class="col-5 videomargin" v-for="(reviewVid,index) in reviewVideos" :key="`r-${index}`">
+          <div class="ratio ratio-16x9">
+            <iframe :src="`https://youtube.com/embed/${reviewVid.video_id}`" allowfullscreen></iframe>
+          </div>
+          <div class="d-flex justify-content-between">
+            <p>{{reviewVid?.channel_name}}</p>
+            <p>{{reviewVid?.video_date}}</p>        
+          </div>
+          <h5 class="review-title">{{reviewVid?.video_title}}</h5>
         </div>
-        <p>{{reviewVid?.channel_name}}
-        <p>{{reviewVid?.video_title}}</p>
-        <p>{{reviewVid?.video_date}}</p>
-        
       </div>
     </b-collapse>
     <hr>
@@ -92,7 +97,7 @@ export default {
       movie: null,
       poster: null,
       trailerSrc: null,
-      reviewVideos: []
+      reviewVideos: [],
     }
   },
   computed: {
@@ -119,6 +124,20 @@ export default {
     this.getMovieDetail()
   },
   methods: {
+    videoSlideToLeft() {
+      const slide = document.querySelector('#scrollbar')
+      slide.scrollBy({
+        left : -slide.scrollWidth*0.334,
+        behavior: 'smooth'
+      })
+    },
+    videoSlideToRight() {
+      const slide = document.querySelector('#scrollbar')
+      slide.scrollBy({
+        left : +slide.scrollWidth*0.334,
+        behavior: 'smooth'
+      })
+    },
     getMovieDetail() {
       axios({
         method: 'get',
@@ -244,6 +263,10 @@ export default {
   margin-bottom: 20px;
 }
 
+.review-title {
+  word-break:keep-all;
+}
+
 #wish-icon {
   display: flex;
   flex-direction: column;
@@ -275,8 +298,47 @@ export default {
 }
 
 #collapse-1 {
+  transition: all 0.5s;
+  position: relative;
+}
+
+#scrollbar {
   display: flex;
   flex-wrap: nowrap;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  transition: all 0.5s;
+}
+
+.videomargin{
+  margin-right: 4.2%;
+  margin-left: 4.2%;
+}
+
+#lefbtn{
+  position: absolute;
+  left: 0px;
+  top:7.5vw;
+  width: 2.5vw;
+  height: 2.5vw;
+  z-index: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: #f4f3ea;
+  opacity: 50%;
+}
+
+#rigbtn{
+  position: absolute;
+  right: 0px;
+  top:7.5vw;
+  width: 2.5vw;
+  height: 2.5vw;
+  z-index: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: #f4f3ea;
+  opacity: 50%;
 
 }
 
