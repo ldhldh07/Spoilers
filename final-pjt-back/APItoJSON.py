@@ -1,16 +1,14 @@
 import requests
 import json
-
-
-# json으로 최종 변환할 리스트
-all_genre_list = []
-all_actor_list = []
-all_movie_list = []
-
+import sys
 
 BASE_URL = 'https://api.themoviedb.org/3'
 API_KEY = '40de101844c75c1524786a8412f97bd3'
 
+# 상대 위치이기 때문에 final-pjt-back 위치에서 실행할것
+# 장르 리스트 파일 로드
+with open('./movies/fixtures/genres.json', 'r', encoding='UTF-8') as file:
+    all_genre_list = json.load(file)
 
 # 장르 데이터 API 요청
 ALL_GENRE_PATH = '/genre/movie/list'
@@ -33,14 +31,20 @@ for genre_info in genre_list:
         'pk': genre_id,
         'fields': genre_info,
     }
-    all_genre_list.append(genre)    
+    if genre not in all_genre_list:
+        all_genre_list.append(genre)    
+
+# 장르 데이터 파일 출력
+with open('./movies/fixtures/genres.json', 'w', encoding='UTF-8') as outfile:
+    json.dump(all_genre_list, outfile, indent=4, ensure_ascii=False)
 
 
 # 영화 데이터 API 요청
 
-# 요청할 페이지의 갯수 입력 (페이지당 영화 20개)
+# 요청할 페이지
+starting_page = 51
 amount_of_page = 10
-for page in range(1, 1 + amount_of_page):
+for page in range(starting_page, starting_page + amount_of_page):
     ALL_MOVIE_PATH = '/discover/movie'
     list_response = requests.get(
         BASE_URL + ALL_MOVIE_PATH,
@@ -55,7 +59,13 @@ for page in range(1, 1 + amount_of_page):
     movie_list = list_response.get('results')
     
     for index, movie_info in enumerate(movie_list):
-        
+                
+        # 현재 json데이터 파일 로드
+        with open('./movies/fixtures/actors.json', 'r', encoding='UTF-8') as file:
+            all_actor_list = json.load(file)
+        with open('./movies/fixtures/movies.json', 'r', encoding='UTF-8') as file:
+            all_movie_list = json.load(file)
+
         date_opened = movie_info.get('release_date')
 
         # 개별 영화 정보 담긴 API 요청
@@ -110,6 +120,10 @@ for page in range(1, 1 + amount_of_page):
             if actor not in all_actor_list:
                 all_actor_list.append(actor)
 
+        # 배우 리스트는 파일로 출력
+        with open('./movies/fixtures/actors.json', 'w', encoding='UTF-8') as outfile:
+            json.dump(all_actor_list, outfile, indent=4, ensure_ascii=False)
+
         # VIDEO API 요청
         MOVIE_VIDEO_PATH = '/movie/{}/videos'.format(movie_id)
 
@@ -121,8 +135,7 @@ for page in range(1, 1 + amount_of_page):
             }
         ).json()
         
-
-
+        # 트레일러 키 재입력되지 않도록 초기화
         trailer_key = ''
         video_ko_list = video_ko_response.get('results')
 
@@ -161,15 +174,23 @@ for page in range(1, 1 + amount_of_page):
                 'genres_of_movie': genres_of_movie,
             }
         }
-        
-        all_movie_list.append(movie)
+        if movie not in all_movie_list:
+            all_movie_list.append(movie)
+            is_new = True
+        else:
+            is_new = False
+
+        with open('./movies/fixtures/movies.json', 'w', encoding='UTF-8') as outfile:
+            json.dump(all_movie_list, outfile, indent=4, ensure_ascii=False)
+
+        if is_new:
+            print(f'{page * 20 + index}번째 영화 {movie_title} 데이터 입력 완료')
+        else:
+            print(f'{page * 20 + index}번째 영화 {movie_title}는(은) 이미 입력되어 있습니다.')
+
+    print(f'{page}페이지 데이터 입력 완료')
 
 
-# json 파일 변환
-with open('./movies/fixtures/genres.json', 'w', encoding='UTF-8') as outfile:
-    json.dump(all_genre_list, outfile, indent=4, ensure_ascii=False)
-with open('./movies/fixtures/actors.json', 'w', encoding='UTF-8') as outfile:
-    json.dump(all_actor_list, outfile, indent=4, ensure_ascii=False)
-with open('./movies/fixtures/movies.json', 'w', encoding='UTF-8') as outfile:
-    json.dump(all_movie_list, outfile, indent=4, ensure_ascii=False)
-
+    with open('./last_input_page.txt', 'a') as pagetxt:
+        pagetxt.write(f'{page}p ')
+        pagetxt.write('')
