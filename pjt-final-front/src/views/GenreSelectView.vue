@@ -2,7 +2,7 @@
   <div class="genre">
     <h1 id="main">장르 선택</h1>
     <div class="d-flex justify-content-start flex-wrap">
-      <div class="genre-box me-3 my-3"
+      <div class="genre-box me-3 my-2 col-12 col-sm-12 col-md-5 col-lg-3 col-xl-3 col-xxl-2"
       v-for="(genre, index) in genres"
       :key="genre.id"
       :id="'g'+index">
@@ -40,12 +40,13 @@ export default {
 .genre-box {
   display: flex;
   border-block-end: 2px solid black;
-  width: 300px;
-  height: 168.75px;
   font-weight: bold;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+  padding-top: 2vw;
+  padding-bottom: 2vw;
+  height: auto;
 }
 
 .genre-box a {

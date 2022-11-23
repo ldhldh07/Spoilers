@@ -1,13 +1,24 @@
 <template>
   <div>
-    <h4>모두의 스포일러 한마디</h4>
+    <div class="d-flex justify-content-start" id="divisionbar">
+      <font-awesome-icon icon="fa-solid fa-comment" id="justicon"/>
+      <span class="align-self-center fs-4">&nbsp;&nbsp;&nbsp;스포일러 한마디</span>
+    </div>
+    <br>
     <CommentListItem
       v-for="comment in comments"
       :key="comment.id"
       :comment="comment"
       @update-comment-list="updateCommentList"
     />
-    <div v-if="isLogIn" id="comment-form">
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-outline-dark" v-b-toggle.comment-form>
+        스포일러 남기기
+      </button>
+    </div>
+    <b-collapse v-if="isLogIn" id="comment-form" class="collapse">
+      <br>
+
       <form @submit.prevent="createComment">
         <label class="form-label" for="comments-title"> 제목 </label>
         <input class="form-control" type="text" id="comments-title" v-model.trim="title"><br>
@@ -21,10 +32,11 @@
           style="text"
         ></textarea>
         <div id="comment-area">
-          <input class="btn btn-warning" type="submit" id="submit-button" value="입력">        
+          <input class="btn btn-dark" type="submit" id="submit-button" value="입력">        
         </div>
       </form>
-    </div>
+
+    </b-collapse>
     <div v-else>
       <br><br>
     </div>
@@ -106,4 +118,5 @@ export default {
   display: flex;
   flex-direction: row-reverse;
 }
+
 </style>

@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <b-navbar fixed="top" type="dark" id="bar" class="text-nowrap">
-      <b-navbar-brand id="logo" to="/home">Spoilers</b-navbar-brand>
+      <b-navbar-brand id="logo" to="/popular">Spoilers</b-navbar-brand>
       <b-navbar-nav>
-        <b-nav-item to="/home">인기</b-nav-item>
+        <b-nav-item to="/popular">인기</b-nav-item>
         <b-nav-item to="/new">최신</b-nav-item>
         <b-nav-item to="/genre" id="genre-text">장르</b-nav-item>
       </b-navbar-nav>
@@ -137,29 +137,4 @@ export default {
   cursor: pointer;
 }
 
-
-.genre:hover .genre-dropdown {
-  display: block;
-}
-
-
-.genre-dropdown {
-  border-radius: 5px;
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 100px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.genre-dropdown a:hover {
-  background-color: #ddd;
-}
-
-.genre-dropdown > a {
-  border-radius: 5px;
-  padding: 5px;
-  padding-left: 10px;
-}
 </style>

@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <div class="d-flex justify-content-start" id="divisionbar">
+      <font-awesome-icon icon="fa-solid fa-clapperboard" id="justicon"/>
+      <span class="align-self-center fs-3">&nbsp;&nbsp;&nbsp;영화 정보</span>
+    </div>
+    <hr>
     <div class="ratio ratio-16x9">
       <iframe
         id="ytplayer" 
@@ -16,7 +21,7 @@
       <div class="col-8" id="movie-title-content">
         <div id="title-wish">
           <h1 id="movie-title"> {{ movie?.movie_title }}</h1>
-          <div v-if="isLogIn" @click="addWishList" id="wish-icon" style="cursor: pointer">
+          <div v-if="isLogIn" @click="addWishList" id="wish-icon" style="cursor: pointer" class="pb-2">
             <font-awesome-icon icon="fa-regular fa-heart" v-if="!isWish" class="fa-2xl"/>
             <font-awesome-icon icon="fa-solid fa-heart" v-else class="fa-2xl"/>
             <span style="white-space:nowrap">wish list</span>
@@ -48,27 +53,35 @@
         </div>
       </div>
     </div>
-    <br>
-    <div>
-      <b-button v-b-toggle.collapse-1 variant="primary" @click.once="reviewSearch(movie.movie_title+'영화 리뷰')">리뷰영상 보기</b-button>
-      <b-collapse id="collapse-1">
-        <div class="ratio ratio-16x9 m-3" v-for="(reviewVid,index) in reviewVideos" :key="`r-${index}`">
-          <iframe :src="`https://youtube.com/embed/${reviewVid.id.videoId}`" allowfullscreen></iframe>
-        </div>
-      </b-collapse>
-      <br>
-      <CommentList
-        :movieId = 'movie?.id'
-        :comments = comments
-        @update-comment-list="getMovieDetail"
-        />
+    <hr>
+    <div class="d-flex justify-content-start" id="divisionbar" v-b-toggle.collapse-1 @click.once="reviewSearch(movie.movie_title+'영화 리뷰')">
+      <font-awesome-icon icon="fa-brands fa-youtube" id="icon"/>
+      <span class="align-self-center fs-4">&nbsp;&nbsp;&nbsp;리뷰 영상 보기</span>
     </div>
+    <b-collapse id="collapse-1">
+      <div class="me-1 col-6" v-for="(reviewVid,index) in reviewVideos" :key="`r-${index}`">
+        <div class="ratio ratio-16x9">
+          <iframe :src="`https://youtube.com/embed/${reviewVid.video_id}`" allowfullscreen></iframe>
+        </div>
+        <p>{{reviewVid?.channel_name}}
+        <p>{{reviewVid?.video_title}}</p>
+        <p>{{reviewVid?.video_date}}</p>
+        
+      </div>
+    </b-collapse>
+    <hr>
+    <CommentList
+      :movieId = 'movie?.id'
+      :comments = comments
+      @update-comment-list="getMovieDetail"
+      />
   </div>
 </template>
 
 <script>
 import CommentList from '@/components/CommentList'
 import axios from 'axios'
+import _ from 'lodash'
 
 const API_URL = 'http://127.0.0.1:8000'
 const URL = "https://www.googleapis.com/youtube/v3/search"
@@ -84,7 +97,7 @@ export default {
       movie: null,
       poster: null,
       trailerSrc: null,
-      reviewVideos: Array,
+      reviewVideos: []
     }
   },
   computed: {
@@ -122,22 +135,56 @@ export default {
         })
     },
     reviewSearch(movieTitle) {
-      axios.get(URL, {
-        params: {
-          key: API_KEY,
-          type: 'video',
-          part: 'id',
-          q: movieTitle,
-          videoEmbeddable: 'true',
-          maxResults: 6
+      if (this.movie?.reviewvideo_set.length > 0) {
+        for (let vid of this.movie?.reviewvideo_set) {
+          this.reviewVideos.push(vid)
+        }
+      } else {
+        axios.get(URL, {
+          params: {
+            key: API_KEY,
+            type: 'video',
+            part: 'snippet',
+            q: movieTitle,
+            videoEmbeddable: 'true',
+            maxResults: 6
+          }
+        })
+          .then(result =>{
+            console.log(result)
+            const list = result.data.items
+            for (let vid of list) {
+              let data = {
+                video_title: _.unescape(vid.snippet.title),
+                video_id : vid.id.videoId,
+                video_date: vid.snippet.publishTime.substr(0,10),
+                channel_name: vid.snippet.channelTitle,
+                }
+              this.reviewVideos.push(data)
+              this.saveReview(data)
+            }
+          })
+          .catch(error=> {
+          console.log(error)
+          })
+      }
+    },
+    saveReview(inputdata) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/api/movies/${this.$route.params.id}/reviews/`,
+        data: {
+          video_title: inputdata.video_title,
+          video_id : inputdata.video_id,
+          video_date: inputdata.video_date,
+          channel_name: inputdata.channel_name,
         }
       })
-        .then(result =>{
-          console.log(result)
-          this.reviewVideos= result.data.items
+        .then((res) => {
+          console.log(res)
         })
-        .catch(error=> {
-        console.log(error)
+        .catch((err) => {
+          alert(err)
         })
     },
     addWishList() {
@@ -210,4 +257,28 @@ export default {
 #actorsName {
   color: #333d51
 }
+
+#icon {
+  width: 65px;
+  height: auto;
+  color: #d42a24;
+  cursor: pointer;
+}
+
+#justicon {
+  width: 60px;
+  height: auto;
+}
+
+#divisionbar {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+#collapse-1 {
+  display: flex;
+  flex-wrap: nowrap;
+
+}
+
 </style>

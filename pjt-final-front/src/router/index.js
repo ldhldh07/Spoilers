@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import HomeView from '@/views/HomeView'
 import SignUpView from '@/views/SignUpView'
 import PopularView from '@/views/PopularView'
 import GenreSelectView from '@/views/GenreSelectView'
@@ -10,7 +11,13 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/home',
+    path: '/',
+    name: 'HomeView',
+    component: HomeView
+  },
+
+  {
+    path: '/popular',
     name: 'PopularView',
     component: PopularView
   },

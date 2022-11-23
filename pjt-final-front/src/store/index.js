@@ -103,6 +103,7 @@ export default new Vuex.Store({
       })
       .then((key)=> {
         context.dispatch('getUserDetail', key)
+        alert('회원가입이 완료되었습니다.')
       })
       .catch((error)=>{
         const errorMessage = error.response.data
