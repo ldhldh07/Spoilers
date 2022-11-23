@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <b-navbar fixed="top" type="dark" id="bar" class="text-nowrap">
-      <b-navbar-brand id="logo" to="/">Spoilers</b-navbar-brand>
+      <b-navbar-brand id="logo" to="/popular">Spoilers</b-navbar-brand>
       <b-navbar-nav>
         <b-nav-item to="/popular">인기</b-nav-item>
         <b-nav-item to="/new">최신</b-nav-item>

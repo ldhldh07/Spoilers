@@ -1,24 +1,23 @@
 <template>
   <div class="text-nowrap">
-    <div id="warning-banner">
+    <!-- <div id="warning-banner">
       <p id="warning-words" class="fs-4">NING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING</p>
       <div id="warning-block" class="d-flex flex-column justify-content-center align-items-center">
         <h1 id="warning-title">스포일러 주의</h1>
         <h2 id="warning-content">이 사이트는 특정 스토리나 설정에 대한 스포일러를 포함하고 있습니다</h2>
       </div>
       <p id="warning-words" class="text-nowrap fs-4">RNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING</p>
-    </div>
-    <!-- <div id="intro">
-      <div class="d-flex">
-      <p id="logo">Spoilers</p>
-      <p>에 오신 걸 환영합니다!</p>
-      </div>
-      <p>영화를 보실 시간이 없나요?</p>
-      <p>자신만 모르는 영화가 이야깃거리가 되고 있나요?</p>
-      <p>Spoilers에서 모든 스포일러를 확인하세요!</p>
-      <p>쉽고 빠르게, 원하는 영화의 모든 정보를 확인하실 수 있습니다.</p>
     </div> -->
-  </div>
+    <div id="intro" class="text-center">
+      <p class="fs-1" id="title">직접 보지 않고도 영화를 알다</p>
+      <p class="fs-4">영화 트레일러와 리뷰를 한 눈에</p>
+      <br>
+      <font-awesome-icon icon="fa-solid fa-triangle-exclamation" id="warnicon"/>
+      <p style="color:#d42a24">SPOILER WARNING</p>
+      <p class="fs-5">이 사이트는 스토리나 설정에 대한 스포일러들로 이루어져 있습니다.</p>
+    </div>
+    <div id="blur"></div>
+  </div> 
 </template>
   
 <script>
@@ -55,9 +54,34 @@
   font-size: 2vw;
 }
 
-#intro{
+#intro {
   position: absolute;
-  top: warning-words
+  width: 100vw;
+  left: 0px;
+  top: 20vh;
 }
+
+#warnicon {
+  width: 5vw;
+  height: auto;
+  color: #d42a24;
+}
+
+#title {
+  font-weight: bold;
+}
+
+#blur {
+  z-index: -1;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  left: 0px;
+  top: 0px;
+  background-image: url("https://wallpapercave.com/wp/wp1945898.jpg");
+  opacity: 25%;
+  filter: blur(5px);
+}
+
 </style>
   

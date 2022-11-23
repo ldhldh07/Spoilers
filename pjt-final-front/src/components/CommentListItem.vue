@@ -3,7 +3,7 @@
     <div id="comment">
       <div id="comment-writer">
         <font-awesome-icon class="fa-2xl" icon="fa-solid fa-user" />
-        <p>{{comment.user.username}}</p>
+        <p id="comment-user-name">{{comment.user.username}}</p>
       </div>
       <div id="comment-content">
         <span class="me-4" id="comment-title">{{ comment.title }}</span>     
@@ -105,9 +105,15 @@ export default {
 
 #delete-button {
   margin-bottom: 50px;
+  width: 30px;
+  height: 30px;
 }
 
 #comment-content {
   margin-left: 20px;
+}
+
+#comment-user-name {
+  word-wrap:break-word;
 }
 </style>

@@ -59,8 +59,14 @@
       <span class="align-self-center fs-4">&nbsp;&nbsp;&nbsp;리뷰 영상 보기</span>
     </div>
     <b-collapse id="collapse-1">
-      <div class="vid ratio ratio-16x9 m-3" v-for="(reviewVid,index) in reviewVideos" :key="`r-${index}`">
-        <iframe :src="`https://youtube.com/embed/${reviewVid.id.videoId}`" allowfullscreen></iframe>
+      <div class="me-1 col-6" v-for="(reviewVid,index) in reviewVideos" :key="`r-${index}`">
+        <div class="ratio ratio-16x9">
+          <iframe :src="`https://youtube.com/embed/${reviewVid.video_id}`" allowfullscreen></iframe>
+        </div>
+        <p>{{reviewVid?.channel_name}}
+        <p>{{reviewVid?.video_title}}</p>
+        <p>{{reviewVid?.video_date}}</p>
+        
       </div>
     </b-collapse>
     <hr>
@@ -75,6 +81,7 @@
 <script>
 import CommentList from '@/components/CommentList'
 import axios from 'axios'
+import _ from 'lodash'
 
 const API_URL = 'http://127.0.0.1:8000'
 const URL = "https://www.googleapis.com/youtube/v3/search"
@@ -90,7 +97,7 @@ export default {
       movie: null,
       poster: null,
       trailerSrc: null,
-      reviewVideos: Array,
+      reviewVideos: []
     }
   },
   computed: {
@@ -128,22 +135,56 @@ export default {
         })
     },
     reviewSearch(movieTitle) {
-      axios.get(URL, {
-        params: {
-          key: API_KEY,
-          type: 'video',
-          part: 'id',
-          q: movieTitle,
-          videoEmbeddable: 'true',
-          maxResults: 6
+      if (this.movie?.reviewvideo_set.length > 0) {
+        for (let vid of this.movie?.reviewvideo_set) {
+          this.reviewVideos.push(vid)
+        }
+      } else {
+        axios.get(URL, {
+          params: {
+            key: API_KEY,
+            type: 'video',
+            part: 'snippet',
+            q: movieTitle,
+            videoEmbeddable: 'true',
+            maxResults: 6
+          }
+        })
+          .then(result =>{
+            console.log(result)
+            const list = result.data.items
+            for (let vid of list) {
+              let data = {
+                video_title: _.unescape(vid.snippet.title),
+                video_id : vid.id.videoId,
+                video_date: vid.snippet.publishTime.substr(0,10),
+                channel_name: vid.snippet.channelTitle,
+                }
+              this.reviewVideos.push(data)
+              this.saveReview(data)
+            }
+          })
+          .catch(error=> {
+          console.log(error)
+          })
+      }
+    },
+    saveReview(inputdata) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/api/movies/${this.$route.params.id}/reviews/`,
+        data: {
+          video_title: inputdata.video_title,
+          video_id : inputdata.video_id,
+          video_date: inputdata.video_date,
+          channel_name: inputdata.channel_name,
         }
       })
-        .then(result =>{
-          console.log(result)
-          this.reviewVideos= result.data.items
+        .then((res) => {
+          console.log(res)
         })
-        .catch(error=> {
-        console.log(error)
+        .catch((err) => {
+          alert(err)
         })
     },
     addWishList() {
@@ -229,13 +270,15 @@ export default {
   height: auto;
 }
 
-#vid{
-  width: 45vw;
-}
-
 #divisionbar {
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+#collapse-1 {
+  display: flex;
+  flex-wrap: nowrap;
+
 }
 
 </style>

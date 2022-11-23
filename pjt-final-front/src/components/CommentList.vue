@@ -18,6 +18,7 @@
     </div>
     <b-collapse v-if="isLogIn" id="comment-form" class="collapse">
       <br>
+
       <form @submit.prevent="createComment">
         <label class="form-label" for="comments-title"> 제목 </label>
         <input class="form-control" type="text" id="comments-title" v-model.trim="title"><br>
@@ -31,9 +32,10 @@
           style="text"
         ></textarea>
         <div id="comment-area">
-          <input class="btn btn-warning" type="submit" id="submit-button" value="입력">        
+          <input class="btn btn-dark" type="submit" id="submit-button" value="입력">        
         </div>
       </form>
+
     </b-collapse>
     <div v-else>
       <br><br>
