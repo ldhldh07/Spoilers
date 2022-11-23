@@ -91,6 +91,7 @@ export default {
 
 #logo {
   font-family: 'PyeongChangPeace-Bold';
+  
 }
 
 #app {

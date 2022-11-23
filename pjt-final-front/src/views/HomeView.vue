@@ -9,6 +9,7 @@
       <p id="warning-words" class="text-nowrap fs-4">RNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING</p>
     </div> -->
     <div id="intro" class="text-center">
+      <p class="fs-1" id="logo">SPOILERS</p>
       <p class="fs-1" id="title">직접 보지 않고도 영화를 알다</p>
       <p class="fs-4">영화 트레일러와 리뷰를 한 눈에</p>
       <br>

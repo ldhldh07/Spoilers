@@ -46,7 +46,7 @@ export default {
   border-radius: 10px;
   padding-top: 2vw;
   padding-bottom: 2vw;
-  height: auto;
+  height: 15vh;
 }
 
 .genre-box a {
@@ -57,7 +57,7 @@ export default {
 
 .genre-box a:hover {
   color: white;
-  font-size: 230%;
+  font-size: 220%;
 }
 
 #g0 {
