@@ -15,6 +15,9 @@
       <input class="form-control" type="password" id="password2" v-model="password2"><br>
       <input class="btn btn-warning" type="submit" value="SignUp">
     </form>
+    <b-modal ref="signup" hide-footer hide-header-close title="회원가입 실패">
+      <p class="my-4">{{ modalMessage }}</p>
+    </b-modal>
   </div>
 </template>
 
@@ -29,6 +32,11 @@ export default {
       password2: null,
     }
   },
+  computed: {
+    modalMessage() {
+      return this.$store.state.modalMessage
+    }
+  },  
   methods: {
     signUp() {
       const username = this.username
@@ -44,9 +52,19 @@ export default {
         password2,
         next,
       }
-
       this.$store.dispatch('signUp', payload)
-
+      setTimeout(() => {
+        if(this.modalMessage) {
+          this.$refs['signup'].show()
+          setTimeout(() => {
+            this.$refs['signup'].hide()
+            this.$store.commit('RESET_MODAL_MESSAGE')
+          },1000)
+        }
+      }, 100)
+    },
+    unmounted() {
+      this.$store.commit('RESET_MODAL_MESSAGE')
     }
   }
 }

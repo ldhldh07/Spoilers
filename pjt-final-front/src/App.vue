@@ -5,39 +5,16 @@
       <b-navbar-nav>
         <b-nav-item to="/home">인기</b-nav-item>
         <b-nav-item to="/new">최신</b-nav-item>
-        <div class="genre">
-          <b-nav-item to="/genre" id="genre-text">장르</b-nav-item>
-          <div class="genre-dropdown" aria-labelledby="genre-text">
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-            <a class="dropdown-item" href="#">장르</a>
-          </div>
-        </div>
+        <b-nav-item to="/genre" id="genre-text">장르</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav v-if="!isLogIn" class="ms-auto">
         <b-nav-item :to="{ name: 'LogInView', query: { next: fromPath } }" >로그인</b-nav-item>
         <b-nav-item :to="{ name: 'SignUpView', query: { next: fromPath } }" >회원가입</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav v-else class="ms-auto">
-        <b-nav-item :to="{ name: 'ProfileView', params: { username: this.user.username } }">
+        <b-nav-item :to="{ name: 'ProfileView', params: { username: this.user?.username } }">
           <font-awesome-icon icon="fa-solid fa-user" />
-          {{this.user.username}}
+          {{this.user?.username}}
         </b-nav-item>
         <b-nav-item href="#" @click="logOut">로그아웃</b-nav-item>
       </b-navbar-nav>
@@ -68,13 +45,22 @@ export default {
       return this.$store.getters.isLogIn
     },
     fromPath() {
-      return this.$route.path
+      var fromPath
+      if (this.$route.query.next) {
+        fromPath = this.$route.query.next
+      } else {
+        fromPath = this.$route.path
+      }
+      return fromPath
     }
   },
   methods: {
     logOut() {
       this.$refs['logout'].show()
       this.$store.commit('LOG_OUT')
+      setTimeout(() => {
+        this.$refs['logout'].hide()
+      },1000)
     },
     scrollinit() {
       window.scrollTo({

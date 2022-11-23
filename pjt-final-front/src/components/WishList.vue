@@ -16,8 +16,6 @@
       first-number
       last-number
     ></b-pagination>
-    <h4>지금까지 적은 스포일러</h4>
-    {{comments}}
   </div>
 </template>
 
@@ -27,7 +25,7 @@ import MovieListItem from '@/components/MovieListItem.vue'
 export default {
   name:'WishList',
   components : {
-    MovieListItem
+    MovieListItem,
   },
   data() {
     return {
@@ -35,16 +33,15 @@ export default {
       currentPage: 1,
     }
   },
+  props: {
+    user : Object,
+  },
   computed: {
     wishList() {
-      return this.$store.state.user.wish_list
-      // 로그인한 유저의 wish_list 데이터를 가져와서 해당 id의 영화 목록 생성
-    },
-    comments() {
-      return this.$store.state.user
+      return this.user?.wish_list
     },
     rows() {
-      return this.wishList.length
+      return this.wishList?.length
     }
   }
 }

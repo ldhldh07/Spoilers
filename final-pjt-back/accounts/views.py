@@ -11,11 +11,15 @@ from rest_framework.authtoken.models import Token
 
 @api_view(['POST'])
 def user_detail(request):
-    key = request.data.get('key')
-    token = get_object_or_404(Token, key=key)
-    user_pk = token.user_id
+    if request.data.get('key'):
+        key = request.data.get('key')
+        token = get_object_or_404(Token, key=key)
+        user_pk = token.user_id
+        user = get_object_or_404(get_user_model(), pk=user_pk)
+    elif request.data.get('username'):
+        username = request.data.get('username')
+        user = get_object_or_404(get_user_model(), username=username)
 
-    user = get_object_or_404(get_user_model(), pk=user_pk)
     serializer = UserSerializer(user)
     return Response(serializer.data)
 

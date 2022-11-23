@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_list_or_404, get_object_or_404
+from django.shortcuts import get_list_or_404, get_object_or_404
 from .serializers import MovieListSerializer, MovieSerializer, GenreSerializer
 from .models import Movie
 from .models import Genre
@@ -13,6 +13,7 @@ def movie_list(request):
     movies = get_list_or_404(Movie)
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
+
 
 @api_view(['GET','PUT'])
 def movie_detail(request, movie_pk):

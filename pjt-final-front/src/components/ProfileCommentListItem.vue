@@ -1,12 +1,9 @@
 <template>
   <div id="comment-list">
     <div id="comment">
-      <div id="comment-writer">
-        <router-link :to="{ name: 'ProfileView', params: { username: comment.user.username } }" id="profile-link">
-          <font-awesome-icon class="fa-2xl" icon="fa-solid fa-user" />
-          <p>{{comment.user.username}}</p>
-        </router-link>
-      </div>
+      <router-link :to="{ name: 'MovieDetailView', params: { id: comment.movie.id } }" class="text-decoration-none" id="comment-writer">
+        <img :src="posterPath" alt="movie-poster" class="rounded">
+      </router-link>
       <div id="comment-content">
         <span class="me-4" id="comment-title">{{ comment.title }}</span>     
         <span>{{ commentCreatedAt }}</span>
@@ -16,8 +13,8 @@
       <button
         id="delete-button"
         class="btn btn-dark"
-        v-if="isOwner"
         @click=deleteComment(comment.id)
+        v-if="isOwner"
       >
       X
       </button>
@@ -34,11 +31,9 @@ export default {
   name: 'CommentListItem',
   props: {
     comment: Object,
+    user: Object,
   },
   computed: {
-    isOwner() {
-      return this.$store.state.user?.id === this.comment.user.id ? true : false
-    },
     commentCreatedAt() {
       const createdDate = new Date(this.comment.created_at)
       const now = new Date()
@@ -57,7 +52,13 @@ export default {
         diffText = `${createdDate.getFullYear()}/${createdDate.getMonth()+1}/${createdDate.getDate()}`
       }
       return diffText
-    }
+    },
+    posterPath() {
+      return "https://image.tmdb.org/t/p/original" + this.comment.movie.poster_path
+    },
+    isOwner() {
+      return this.$store.state.user?.username === this.user.username ? true : false
+    },
   },
   methods: {
     deleteComment(commentId) {
@@ -75,7 +76,7 @@ export default {
           console.log(error)
         })
     }
-  }
+  },
 }
 </script>
 
@@ -111,10 +112,5 @@ export default {
 
 #comment-content {
   margin-left: 20px;
-}
-
-#profile-link {
-  color : #333d51;
-  text-decoration: none;
 }
 </style>
