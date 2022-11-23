@@ -20,9 +20,17 @@ def comment_create(request, movie_pk):
     serializer = CommentSerializer(data=request.data)
     user_pk = request.data.get('user_id')
     user = get_object_or_404(get_user_model(), pk=user_pk)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save(movie=movie, user=user)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    if request.data.get('parent_id'):
+        parent_pk = request.data.get('parent_id')
+        parent = get_object_or_404(Comment, pk=parent_pk)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(movie=movie, user=user, parent=parent)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(movie=movie, user=user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 @api_view(['PUT', 'DELETE'])

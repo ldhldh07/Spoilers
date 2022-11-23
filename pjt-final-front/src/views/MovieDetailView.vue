@@ -1,10 +1,5 @@
 <template>
   <div class="container">
-    <div class="d-flex justify-content-start" id="divisionbar">
-      <font-awesome-icon icon="fa-solid fa-clapperboard" id="justicon"/>
-      <span class="align-self-center fs-3">&nbsp;&nbsp;&nbsp;영화 정보</span>
-    </div>
-    <hr>
     <div class="ratio ratio-16x9">
       <iframe
         id="ytplayer" 
@@ -102,7 +97,11 @@ export default {
   },
   computed: {
     comments() {
-      return this.movie?.comment_set
+      const comments = this.movie?.comment_set
+      const ParentComments = comments?.filter((comment) => {
+        return !comment.parent
+      })
+      return ParentComments
     },
     isLogIn() {
       return this.$store.getters.isLogIn
