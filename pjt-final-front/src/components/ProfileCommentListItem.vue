@@ -1,9 +1,9 @@
 <template>
   <div id="comment-list">
     <div id="comment">
-      <div id="comment-writer">
+      <router-link :to="{ name: 'MovieDetailView', params: { id: comment.movie.id } }" class="text-decoration-none" id="comment-writer">
         <img :src="posterPath" alt="movie-poster" class="rounded">
-      </div>
+      </router-link>
       <div id="comment-content">
         <span class="me-4" id="comment-title">{{ comment.title }}</span>     
         <span>{{ commentCreatedAt }}</span>
@@ -14,6 +14,7 @@
         id="delete-button"
         class="btn btn-dark"
         @click=deleteComment(comment.id)
+        v-if="isOwner"
       >
       X
       </button>
@@ -30,6 +31,7 @@ export default {
   name: 'CommentListItem',
   props: {
     comment: Object,
+    user: Object,
   },
   computed: {
     commentCreatedAt() {
@@ -53,7 +55,10 @@ export default {
     },
     posterPath() {
       return "https://image.tmdb.org/t/p/original" + this.comment.movie.poster_path
-    }
+    },
+    isOwner() {
+      return this.$store.state.user?.username === this.user.username ? true : false
+    },
   },
   methods: {
     deleteComment(commentId) {
@@ -71,7 +76,7 @@ export default {
           console.log(error)
         })
     }
-  }
+  },
 }
 </script>
 

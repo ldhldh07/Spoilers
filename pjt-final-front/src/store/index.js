@@ -18,6 +18,7 @@ export default new Vuex.Store({
     genres: [],
     token: null,
     user: null,
+    modalMessage: null,
   },
   getters: {
     isLogIn(state) {
@@ -41,12 +42,17 @@ export default new Vuex.Store({
       }
     },
     GET_USER_DETAIL(state, user) {
-      console.log(user.comment_set)
       state.user = user
     },
     LOG_OUT(state) {
       state.token = null
       state.user = null
+    },
+    SET_MODAL_MESSAGE(state, modalMessage) {
+      state.modalMessage = modalMessage
+    },
+    RESET_MODAL_MESSAGE(state) {
+      state.modalMessage = null
     }
   },
   actions: {
@@ -99,12 +105,72 @@ export default new Vuex.Store({
         context.dispatch('getUserDetail', key)
       })
       .catch((error)=>{
-        console.log(error)
         const errorMessage = error.response.data
         console.log(errorMessage)
+        var modalMessage
         if (errorMessage.username) {
-          alert('ID를 입력해주세요')
+          switch (errorMessage.username[0]) {
+            case 'This field may not be null.': {
+              modalMessage = 'ID를 입력해주세요'
+              break
+            }
+            case 'A user with that username already exists.': {
+              modalMessage = '이미 존재하는 ID입니다'
+              break
+            }
+          }
+        } else if (errorMessage.email){
+          switch (errorMessage.email[0]) {
+            case 'This field may not be null.': {
+              modalMessage = '이메일을 입력해주세요'
+              break
+            }
+            case 'Enter a valid email address.': {
+              modalMessage = '잘못된 이메일 형식입니다'
+              break
+            }
+            case 'A user is already registered with this e-mail address.': {
+              modalMessage = '이미 등록된 이메일입니다'
+              break
+            }
+          }
+        } else if (errorMessage.password1) {
+          switch (errorMessage.password1[0]) {
+            case 'This field may not be null.': {
+              modalMessage = '비밀번호를 입력해주세요'
+              break
+            }
+            case 'This password is too short. It must contain at least 8 characters.': {
+              modalMessage = '비밀번호는 8자 이상으로 작성해주세요'
+              break
+            }
+            case 'This password is too common.': {
+              modalMessage = '지나치게 쉬운 비밀번호입니다'
+              break
+            }
+            case 'This password is entirely numeric.': {
+              modalMessage = '비밀번호는 숫자만으로 설정 불가능합니다'
+              break
+            }
+          }
+        } else if (errorMessage.password2) {
+          switch (errorMessage.password2[0]) {
+            case 'This field may not be null.': {
+              modalMessage = '비밀번호 확인을 입력해주세요'
+              break
+            }
+          }
+        } else if (errorMessage.non_field_errors) {
+          switch (errorMessage.non_field_errors[0]) {
+            case "The two password fields didn't match.": {
+              modalMessage = '비밀번호 확인이 일치하지 않습니다'
+              break
+            }
+          }
+        } else {
+          modalMessage = '회원가입 실패'
         }
+        context.commit('SET_MODAL_MESSAGE', modalMessage)
       })
     },
     logIn(context, payload) {
@@ -130,8 +196,31 @@ export default new Vuex.Store({
           context.dispatch('getUserDetail', key)
         })
         .catch((error)=>{
-          console.log(error)
-          alert('로그인 실패')
+          const errorMessage = error.response.data
+          console.log(errorMessage)
+          var modalMessage
+          if (errorMessage.non_field_errors) {
+            switch (errorMessage.non_field_errors[0]) {
+              case 'Must include "username" and "password".': {
+                modalMessage = 'ID를 입력해주세요'
+                break
+              }
+              case 'Unable to log in with provided credentials.': {
+                modalMessage = '잘못된 정보가 입력되었습니다'
+                break
+              }
+            }
+          } else if (errorMessage.password) {
+            switch (errorMessage.password[0]) {
+              case "This field may not be blank.": {
+                modalMessage = '비밀번호를 입력해주세요'
+                break
+              }
+            }
+          } else {
+            modalMessage = '로그인 실패'
+          }
+          context.commit('SET_MODAL_MESSAGE', modalMessage)
         })
     },
     getUserDetail(context, key) {

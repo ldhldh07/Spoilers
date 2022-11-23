@@ -12,6 +12,9 @@
 
       <input class="btn btn-warning" type="submit" value="logIn">
     </form>
+    <b-modal ref="login" hide-footer hide-header-close title="로그인 실패">
+      <p class="my-4">{{ modalMessage }}</p>
+    </b-modal>
   </div>
 </template>
 
@@ -23,6 +26,11 @@ export default {
       // email: null,
       username: null,
       password: null,
+    }
+  },
+  computed: {
+    modalMessage() {
+      return this.$store.state.modalMessage
     }
   },
   methods: {
@@ -38,8 +46,18 @@ export default {
         password,
         next,
       }
+      
       this.$store.dispatch('logIn', payload)
-    }
+      setTimeout(() => {
+        if(this.modalMessage) {
+          this.$refs['login'].show()
+          setTimeout(() => {
+            this.$refs['login'].hide()
+            this.$store.commit('RESET_MODAL_MESSAGE')
+          },500)
+        }
+      }, 100)
+    },
   }
 }
 </script>

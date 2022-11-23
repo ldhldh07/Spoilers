@@ -7,7 +7,6 @@
         :key="movie.id"
         :movie="movie"
       />
-
     </div>
     <b-pagination
       v-model="currentPage"
@@ -17,27 +16,16 @@
       first-number
       last-number
     ></b-pagination>
-    <h4>지금까지 적은 스포일러</h4>
-    <div class="container">
-      <ProfileCommentListItem
-        v-for="comment in comments"
-        :key="comment.id"
-        :comment="comment"
-      />
-
-    </div>
   </div>
 </template>
 
 <script>
 import MovieListItem from '@/components/MovieListItem.vue'
-import ProfileCommentListItem from '@/components/ProfileCommentListItem.vue'
 
 export default {
   name:'WishList',
   components : {
     MovieListItem,
-    ProfileCommentListItem,
   },
   data() {
     return {
@@ -45,16 +33,15 @@ export default {
       currentPage: 1,
     }
   },
+  props: {
+    user : Object,
+  },
   computed: {
     wishList() {
-      return this.$store.state.user.wish_list
-      // 로그인한 유저의 wish_list 데이터를 가져와서 해당 id의 영화 목록 생성
-    },
-    comments() {
-      return this.$store.state.user.comment_set
+      return this.user?.wish_list
     },
     rows() {
-      return this.wishList.length
+      return this.wishList?.length
     }
   }
 }

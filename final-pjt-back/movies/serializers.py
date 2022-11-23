@@ -15,6 +15,7 @@ class GenreSerializer(serializers.ModelSerializer):
         model = Genre
         fields = '__all__'
 
+
 class MovieListSerializer(serializers.ModelSerializer):
 
     class Meta:
