@@ -2,15 +2,10 @@
   <div id="comment-list">
     <div id="comment">
       <div id="comment-writer">
-<<<<<<< HEAD
         <router-link :to="{ name: 'ProfileView', params: { username: comment.user.username } }" id="profile-link">
           <font-awesome-icon class="fa-2xl" icon="fa-solid fa-user" />
-          <p>{{comment.user.username}}</p>
+          <p id="comment-user-name">{{comment.user.username}}</p>
         </router-link>
-=======
-        <font-awesome-icon class="fa-2xl" icon="fa-solid fa-user" />
-        <p id="comment-user-name">{{comment.user.username}}</p>
->>>>>>> driculer
       </div>
       <div id="comment-content">
         <span class="me-4" id="comment-title">{{ comment.title }}</span>     
@@ -120,13 +115,13 @@ export default {
   margin-left: 20px;
 }
 
-<<<<<<< HEAD
+
 #profile-link {
   color : #333d51;
   text-decoration: none;
-=======
+}
+
 #comment-user-name {
   word-wrap:break-word;
->>>>>>> driculer
 }
 </style>
