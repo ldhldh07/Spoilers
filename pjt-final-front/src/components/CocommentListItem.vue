@@ -10,20 +10,8 @@
         </div>
         <div id="comment-content">
           <span class="me-4" id="comment-title">{{ comment.title }}</span>     
-          <span>{{ commentCreatedAt }}</span><br>
-          <span>{{ comment.content }}</span>
-          <br>
-          <div
-            style= "margin-top: 10px"
-            v-b-toggle="`${comment.id}-comment-form`"
-            @click="replyOpen = !replyOpen"
-          >
-            <span>
-              <font-awesome-icon v-if="replyOpen" icon="fa-solid fa-angles-up" />
-              <font-awesome-icon v-else icon="fa-solid fa-angles-down" />
-              답글   {{ comments.length }}
-            </span>
-          </div>
+          <span>{{ commentCreatedAt }}</span>
+          <p>{{ comment.content }}</p>
         </div>
       </div>
       <div>
@@ -31,43 +19,23 @@
           id="delete-button"
           class="btn btn-dark btn-sm"
           v-if="isOwner"
-          @click=deleteComment(comment.id)
+          @click="deleteComment(comment.id)"
         >
         X
         </button>
       </div>
     </div>
-    <div class="d-flex">
-    </div>
-    <b-collapse :id="`${comment.id}-comment-form`" class="collapse">
-      <CocommentList
-        :movieId = movieId
-        :parentId = comment.id
-        :comments = comments
-        @update-comment-list="updateCommentList"
-        id="cocoment-area"
-      />
-    </b-collapse>
   </div>
 </template>
   
 <script>
-import CocommentList from '@/components/CocommentList'
 import axios from 'axios'
 
 const API_URL = 'http://127.0.0.1:8000'
 
 
 export default {
-  name: 'CommentListItem',
-  components: {
-    CocommentList,
-  },
-  data() {
-    return {
-      replyOpen: false
-    }
-  },
+  name: 'CocommentListItem',
   props: {
     comment: Object,
     movieId: Number,
@@ -115,9 +83,6 @@ export default {
           console.log(error)
         })
     },
-    updateCommentList() {
-      this.$emit('update-comment-list')
-    }
   }
 }
 </script>
@@ -165,9 +130,5 @@ export default {
 
 #comment-user-name {
   word-wrap:break-word;
-}
-
-#cocoment-area {
-  margin-left: 5vw;
 }
 </style>
