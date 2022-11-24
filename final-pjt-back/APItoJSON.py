@@ -7,6 +7,7 @@ API_KEY = '40de101844c75c1524786a8412f97bd3'
 
 # 상대 위치이기 때문에 final-pjt-back 위치에서 실행할것
 # 장르 리스트 파일 로드
+# 시간이 좀 걸리더라도 중복 검사를 위해 로드해서 다시 파일화
 with open('./movies/fixtures/genres.json', 'r', encoding='UTF-8') as file:
     all_genre_list = json.load(file)
 
@@ -42,7 +43,7 @@ with open('./movies/fixtures/genres.json', 'w', encoding='UTF-8') as outfile:
 # 영화 데이터 API 요청
 
 # 요청할 페이지
-starting_page = 241
+starting_page = 341
 amount_of_page = 10
 for page in range(starting_page, starting_page + amount_of_page):
     ALL_MOVIE_PATH = '/discover/movie'

@@ -86,8 +86,12 @@ export default {
       });
     },
     search() {
-      this.$router.push({name:'SearchView',params:{keyword:this.searchWord, page:1}})
-      this.searchWord=null
+      if (this.searchWord?.trim()) {
+        this.$router.push({name:'SearchView',params:{keyword:this.searchWord, page:1}})
+        this.searchWord=null
+      } else (
+        alert('검색어를 입력해주세요')
+      )
     }
   },
 }
