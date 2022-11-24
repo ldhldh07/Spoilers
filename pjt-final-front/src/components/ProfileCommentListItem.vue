@@ -1,5 +1,9 @@
 <template>
-  <div id="comment-list">
+  <div
+    id="comment-list"
+    @mouseover="isHovered = true"
+    @mouseleave="isHovered = false"  
+  >
     <div id="comment">
       <router-link :to="{ name: 'MovieDetailView', params: { id: comment.movie.id } }" class="text-decoration-none" id="comment-writer">
         <img :src="posterPath" alt="movie-poster" class="rounded">
@@ -15,6 +19,7 @@
         class="btn btn-dark"
         @click=deleteComment(comment.id)
         v-if="isOwner"
+        v-show="isHovered"
       >
       X
       </button>
@@ -32,6 +37,11 @@ export default {
   props: {
     comment: Object,
     user: Object,
+  },
+  data() {
+    return {
+      isHovered: false,
+    }
   },
   computed: {
     commentCreatedAt() {

@@ -1,10 +1,15 @@
 <template>
   <div>
-    <div id="comment-list">
+    <div
+      id="comment-list"
+      @mouseover="isHovered = true"
+      @mouseleave="isHovered = false"  
+    >
       <div id="comment">
         <div id="comment-writer">
           <router-link :to="{ name: 'ProfileView', params: { username: comment.user.username } }" id="profile-link">
-            <font-awesome-icon class="fa-2xl" icon="fa-solid fa-user" />
+            <font-awesome-icon v-if="isOwner" class="fa-2xl" icon="fa-regular fa-user" />
+            <font-awesome-icon v-else class="fa-2xl" icon="fa-solid fa-user" />
             <p id="comment-user-name">{{comment.user.username}}</p>
           </router-link>
         </div>
@@ -31,6 +36,7 @@
           id="delete-button"
           class="btn btn-dark btn-sm"
           v-if="isOwner"
+          v-show="isHovered"
           @click=deleteComment(comment.id)
         >
         X
@@ -65,7 +71,8 @@ export default {
   },
   data() {
     return {
-      replyOpen: false
+      replyOpen: false,
+      isHovered: false,
     }
   },
   props: {
@@ -117,6 +124,9 @@ export default {
     },
     updateCommentList() {
       this.$emit('update-comment-list')
+    },
+    hoverComment() {
+      this.isHovered = true
     }
   }
 }

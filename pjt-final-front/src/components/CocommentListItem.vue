@@ -1,17 +1,22 @@
 <template>
   <div>
-    <div id="comment-list">
+    <div
+      id="comment-list"
+      @mouseover="isHovered = true"
+      @mouseleave="isHovered = false"  
+    >
       <div id="comment">
         <div id="comment-writer">
-          <router-link :to="{ name: 'ProfileView', params: { username: comment.user.username } }" id="profile-link">
-            <font-awesome-icon class="fa-2xl" icon="fa-solid fa-user" />
+          <router-link :to="{ name: 'ProfileView', params: { username: comment.user.username } }" id="cocoment-profile-link">
+            <font-awesome-icon v-if="isOwner" class="fa-2xl" icon="fa-regular fa-user" />
+            <font-awesome-icon v-else class="fa-2xl" icon="fa-solid fa-user" />
             <p id="comment-user-name">{{comment.user.username}}</p>
           </router-link>
         </div>
         <div id="comment-content">
           <span class="me-4" id="comment-title">{{ comment.title }}</span>     
-          <span>{{ commentCreatedAt }}</span>
-          <p>{{ comment.content }}</p>
+          <span>{{ commentCreatedAt }}</span><br>
+          <span>{{ comment.content }}</span>
         </div>
       </div>
       <div>
@@ -19,6 +24,7 @@
           id="delete-button"
           class="btn btn-dark btn-sm"
           v-if="isOwner"
+          v-show="isHovered"
           @click="deleteComment(comment.id)"
         >
         X
@@ -39,6 +45,11 @@ export default {
   props: {
     comment: Object,
     movieId: Number,
+  },
+  data() {
+    return {
+      isHovered: false,
+    }
   },
   computed: {
     isOwner() {
@@ -123,9 +134,11 @@ export default {
   margin-left: 20px;
 }
 
-#profile-link {
+#cocoment-profile-link {
   color : #333d51;
   text-decoration: none;
+  margin-top: 7px;
+  margin-bottom: 1px;
 }
 
 #comment-user-name {
