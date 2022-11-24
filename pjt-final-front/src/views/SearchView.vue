@@ -1,8 +1,8 @@
 <template>
   <div class="popular">
-    <h1 id="main">따끈따끈한 최신 영화</h1>
+    <h1 id="main">"{{searchWord}}"의 검색 결과</h1>
     <MovieList
-      :isNew="isNew"
+      :isNew="searchWord"
     />
   </div>
 </template>
@@ -11,13 +11,18 @@
 import MovieList from '@/components/MovieList'
 
 export default {
+  beforeRouteUpdate(to,from,next) {
+		this.searchWord= to.params.keyword
+		next()
+  },
+
   name: 'PopularView',
   components: {
     MovieList,
   },
   data: function() {
     return{
-      isNew: 'NEW'
+      searchWord : this.$route.params.keyword,
     }
   },
 }

@@ -20,7 +20,7 @@ export default {
   },
   data: function() {
     return{
-      isNew: false
+      isNew: 'POPULAR'
     }
   },
   methods: {
