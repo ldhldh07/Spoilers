@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-wrap">
+  <div class="d-flex flex-wrap flex-column">
     <div id="movieitems">
       <MovieListItem
         v-for="movie in movies"
