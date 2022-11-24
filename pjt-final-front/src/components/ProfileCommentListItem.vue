@@ -5,7 +5,7 @@
     @mouseleave="isHovered = false"  
   >
     <div id="comment">
-      <router-link :to="{ name: 'MovieDetailView', params: { id: comment.movie.id } }" class="text-decoration-none" id="comment-writer">
+      <router-link :to="{ name: 'MovieDetailView', params: { id: comment.movie.id } ,page: 1 }" class="text-decoration-none" id="comment-writer">
         <img :src="posterPath" alt="movie-poster" class="rounded">
       </router-link>
       <div id="comment-content">

@@ -1,6 +1,6 @@
 <template>
   <div class="popular">
-    <h1 id="main">"{{searchWord}}"의 검색 결과</h1>
+    <h1 id="main">"{{ searchWord }}"의 검색 결과</h1>
     <MovieList
       :isNew="searchWord"
     />
@@ -31,5 +31,6 @@ export default {
 <style>
 #main{
   font-weight: bold;
+  margin-bottom: 20px;
 }
 </style>

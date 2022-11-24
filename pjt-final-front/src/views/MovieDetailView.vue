@@ -29,7 +29,7 @@
           v-for="genre in movie?.genres_of_movie"
           :key="genre.id"
         >
-          <router-link :to="{name:'GenreView', params:{genre:genre.name, code:String(genre.id)}}">        
+          <router-link :to="{name:'GenreView', params:{genre:genre.name, code:String(genre.id), page: 1} }">        
             <span class="badge bg-dark ms-1">
               {{ genre.name }}
             </span>
@@ -39,7 +39,7 @@
         <p>출연 배우 : </p>
         <div class="d-flex flex-wrap">
           <div v-for="actor in movie?.starring" :key="actor.id" class="me-3">
-            <router-link :to="{name:'ActorView', params:{name:actor.name, id:String(actor.id), page:1}}" class="text-decoration-none">
+            <router-link :to="{name:'ActorView', params:{name:actor.name, id:String(actor.id), page:1 } }" class="text-decoration-none">
               <span id="actorsName">
                 {{ actor.name }}
               </span>

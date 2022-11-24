@@ -166,5 +166,8 @@ export default {
   cursor: pointer;
 }
 
+#main{
+  margin-bottom: 20px;
+}
 
 </style>

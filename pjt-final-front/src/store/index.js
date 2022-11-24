@@ -38,7 +38,7 @@ export default new Vuex.Store({
       if (loginPayload.next) {
         router.push({ path: loginPayload.next })
       } else {
-        router.push({ name: 'PopularView' })
+        router.push({ name: 'PopularView', page: 1 })
       }
     },
     GET_USER_DETAIL(state, user) {

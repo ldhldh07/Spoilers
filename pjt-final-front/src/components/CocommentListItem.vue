@@ -7,7 +7,7 @@
     >
       <div id="comment">
         <div id="comment-writer">
-          <router-link :to="{ name: 'ProfileView', params: { username: comment.user.username } }" id="cocoment-profile-link">
+          <router-link :to="{ name: 'ProfileView', params: { username: comment.user.username, page: 1 } }" id="cocoment-profile-link">
             <font-awesome-icon v-if="isOwner" class="fa-2xl" icon="fa-regular fa-user" />
             <font-awesome-icon v-else class="fa-2xl" icon="fa-solid fa-user" />
             <p id="comment-user-name">{{comment.user.username}}</p>
