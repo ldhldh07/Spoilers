@@ -43,7 +43,7 @@ with open('./movies/fixtures/genres.json', 'w', encoding='UTF-8') as outfile:
 # 영화 데이터 API 요청
 
 # 요청할 페이지
-starting_page = 381
+starting_page = 491
 amount_of_page = 10
 for page in range(starting_page, starting_page + amount_of_page):
     ALL_MOVIE_PATH = '/discover/movie'
@@ -175,17 +175,23 @@ for page in range(starting_page, starting_page + amount_of_page):
                 'genres_of_movie': genres_of_movie,
             }
         }
-        if movie not in all_movie_list:
+
+        is_new = False
+        if not movie.get('fields').get('poster_path'):
+            no_poster = True
+        elif movie in all_movie_list:
+            no_poster = False   
+        else:
             all_movie_list.append(movie)
             is_new = True
-        else:
-            is_new = False
 
         with open('./movies/fixtures/movies.json', 'w', encoding='UTF-8') as outfile:
             json.dump(all_movie_list, outfile, indent=4, ensure_ascii=False)
 
         if is_new:
             print(f'{page * 20 + index}번째 영화 {movie_title} 데이터 입력 완료')
+        elif no_poster:
+            print(f'{page * 20 + index}번째 영화 {movie_title} 포스터 없음')
         else:
             print(f'{page * 20 + index}번째 영화 {movie_title}는(은) 이미 입력되어 있습니다.')
 
