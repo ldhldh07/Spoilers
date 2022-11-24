@@ -1,8 +1,8 @@
 <template>
-  <div id="actormovie" class="d-flex flex-wrap">
+  <div id="actormovie" class="d-flex flex-wrap flex-column">
     <div class="d-flex flex-wrap" id="movieitems">
       <MovieListItem
-        v-for="movie in movies"
+        v-for="movie in nowPage"
         :key="movie.id"
         :movie="movie"
       />
@@ -37,6 +37,9 @@ export default {
       const array = this.$store.state.movies
       const actorArray = array.filter(movie => movie.starring.includes(Number(this.actor)))
       return actorArray
+    },
+    nowPage() {
+      return this.movies.slice((this.currentPage-1)*this.perPage, this.currentPage*this.perPage)
     },
     rows() {
       return this.movies.length

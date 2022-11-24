@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-wrap flex-column align-items-start">
     <h4>위시리스트</h4>
-    <div id="movieitems">
+    <div id="wishlist">
       <MovieListItem
         v-for="movie in wishList"
         :key="movie.id"
@@ -12,7 +12,7 @@
       v-model="currentPage"
       :total-rows="rows"
       :per-page="perPage"
-      aria-controls="movieitems"
+      aria-controls="wishlist"
       first-number
       last-number
     ></b-pagination>
@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      perPage: 24,
+      perPage: 12,
       currentPage: 1,
     }
   },
@@ -38,10 +38,10 @@ export default {
   },
   computed: {
     wishList() {
-      return this.user?.wish_list
+      return this.user?.wish_list.slice((this.currentPage-1)*this.perPage, this.currentPage*this.perPage)
     },
     rows() {
-      return this.wishList?.length
+      return this.user?.wish_list.length
     }
   }
 }
