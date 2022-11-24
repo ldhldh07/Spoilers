@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-wrap flex-column">
+  <div class="d-flex flex-wrap flex-column align-items-center">
     <div id="movieitems">
       <MovieListItem
         v-for="movie in movies"
@@ -7,14 +7,16 @@
         :movie="movie"
       />
     </div>
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      aria-controls="movieitems"
-      first-number
-      last-number
-    ></b-pagination>
+    <div @click="changePage">
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="movieitems"
+        first-number
+        last-number
+      ></b-pagination>
+    </div>
   </div>
 </template>
 
@@ -29,7 +31,7 @@ export default {
   data() {
     return {
       perPage: 24,
-      currentPage: 1,
+      currentPage: this.$route.params.page,
     }
   },
   computed: {
@@ -58,6 +60,11 @@ export default {
   },
   props:{
     isNew: String,
+  },
+  methods: {
+    changePage() {  
+      history.pushState(null, null, this.currentPage)
+    }
   },
 }
 </script>

@@ -42,7 +42,7 @@ with open('./movies/fixtures/genres.json', 'w', encoding='UTF-8') as outfile:
 # 영화 데이터 API 요청
 
 # 요청할 페이지
-starting_page = 201
+starting_page = 221
 amount_of_page = 10
 for page in range(starting_page, starting_page + amount_of_page):
     ALL_MOVIE_PATH = '/discover/movie'
