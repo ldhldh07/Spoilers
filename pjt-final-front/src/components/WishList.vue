@@ -8,14 +8,16 @@
         :movie="movie"
       />
     </div>
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      aria-controls="wishlist"
-      first-number
-      last-number
-    ></b-pagination>
+    <div @click="changePage" id="page-area">
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="wishlist"
+        first-number
+        last-number
+      ></b-pagination>
+    </div>
   </div>
 </template>
 
@@ -30,7 +32,7 @@ export default {
   data() {
     return {
       perPage: 12,
-      currentPage: 1,
+      currentPage: this.$route.params.page,
     }
   },
   props: {
@@ -43,12 +45,17 @@ export default {
     rows() {
       return this.user?.wish_list.length
     }
-  }
+  },
+  methods: {
+    changePage() {  
+      history.pushState(null, null, this.currentPage)
+    }
+  },
 }
 </script>
 
 <style>
-.pagination {
+#page-area {
   margin-right: auto;
   margin-left: auto;
 }

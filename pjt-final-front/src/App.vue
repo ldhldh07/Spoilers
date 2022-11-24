@@ -2,11 +2,11 @@
   <div id="app">
     <b-navbar fixed="top" type="dark" id="bar" class="text-nowrap">
 
-      <b-navbar-brand id="logo" to="/popular">Spoilers</b-navbar-brand>
+      <b-navbar-brand id="logo" to="/popular/1">Spoilers</b-navbar-brand>
 
       <b-navbar-nav>
-        <b-nav-item to="/popular">인기</b-nav-item>
-        <b-nav-item to="/new">최신</b-nav-item>
+        <b-nav-item to="/popular/1">인기</b-nav-item>
+        <b-nav-item to="/new/1">최신</b-nav-item>
         <b-nav-item to="/genre" id="genre-text">장르</b-nav-item>
       </b-navbar-nav>
 
@@ -22,7 +22,7 @@
       </b-navbar-nav>
 
       <b-navbar-nav v-else class="ms-3 me-0">
-        <b-nav-item :to="{ name: 'ProfileView', params: { username: this.user?.username } }">
+        <b-nav-item :to="{ name: 'ProfileView', params: { username: this.user?.username, page:1 } }">
           <font-awesome-icon icon="fa-solid fa-user" />
           {{this.user?.username}}
         </b-nav-item>
@@ -86,7 +86,7 @@ export default {
       });
     },
     search() {
-      this.$router.push({name:'SearchView',params:{keyword:this.searchWord}})
+      this.$router.push({name:'SearchView',params:{keyword:this.searchWord, page:1}})
       this.searchWord=null
     }
   },

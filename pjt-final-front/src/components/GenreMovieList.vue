@@ -13,14 +13,16 @@
         :movie="movie"
       />
     </div>
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      aria-controls="movieitems"
-      first-number
-      last-number
-    ></b-pagination>
+    <div @click="changePage" id="page-area">
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="movieitems"
+        first-number
+        last-number
+      ></b-pagination>
+    </div>
   </div>
 </template>
 
@@ -33,7 +35,7 @@ export default {
     return {
       toggle: true,
       perPage: 24,
-      currentPage: 1,
+      currentPage: this.$route.params.page,
     }
   },
   components : {
@@ -76,6 +78,9 @@ export default {
       popularbtn.setAttribute('style','  font-weight: bold')
       newbtn.setAttribute('style','  font-weight: 400')
       this.currentPage = 1
+    },
+    changePage() {  
+      history.pushState(null, null, this.currentPage)
     }
   }
 }
@@ -90,7 +95,7 @@ export default {
   color: #333d51;
 }
 
-.pagination {
+#page-area {
   margin-right: auto;
   margin-left: auto;
 }

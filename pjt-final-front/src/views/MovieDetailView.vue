@@ -39,7 +39,7 @@
         <p>출연 배우 : </p>
         <div class="d-flex flex-wrap">
           <div v-for="actor in movie?.starring" :key="actor.id" class="me-3">
-            <router-link :to="{name:'ActorView', params:{name:actor.name, id:String(actor.id)}}" class="text-decoration-none">
+            <router-link :to="{name:'ActorView', params:{name:actor.name, id:String(actor.id), page:1}}" class="text-decoration-none">
               <span id="actorsName">
                 {{ actor.name }}
               </span>

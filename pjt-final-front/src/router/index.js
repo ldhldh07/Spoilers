@@ -17,13 +17,13 @@ const routes = [
   },
 
   {
-    path: '/popular',
+    path: '/popular/:page',
     name: 'PopularView',
     component: PopularView
   },
 
   {
-    path: '/new',
+    path: '/new/:page',
     name: 'NewestView',
     component: NewestView
   },
@@ -35,13 +35,13 @@ const routes = [
   },
 
   {
-    path: '/genre/:genre/:code',
+    path: '/genre/:genre/:code/:page',
     name: 'GenreView',
     component: () => import('../views/GenreView.vue')
   },
 
   {
-    path: '/profile/:username',
+    path: '/profile/:username/:page',
     // 미인증 시 라우터가드로 로그인 페이지로 이동시킬 것.
     name: 'ProfileView',
     component: () => import('../views/ProfileView.vue'),
@@ -54,7 +54,7 @@ const routes = [
   },
 
   {
-    path: '/actor/:name/:id',
+    path: '/actor/:name/:id/:page',
     name: 'ActorView',
     component: () => import('../views/ActorView.vue')
   },
@@ -72,7 +72,7 @@ const routes = [
   },
 
   {
-    path: '/search/:keyword',
+    path: '/search/:keyword/:page',
     name: 'SearchView',
     component: () => import('../views/SearchView.vue')
   },

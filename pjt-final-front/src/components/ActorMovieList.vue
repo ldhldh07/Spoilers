@@ -7,14 +7,16 @@
         :movie="movie"
       />
     </div>
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      aria-controls="movieitems"
-      first-number
-      last-number
-    ></b-pagination>
+    <div @click="changePage" id="page-area">
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="movieitems"
+        first-number
+        last-number
+      ></b-pagination>
+    </div>
   </div>
 </template>
 
@@ -29,7 +31,7 @@ export default {
   data() {
     return {
       perPage: 24,
-      currentPage: 1,
+      currentPage: this.$route.params.page,
     }
   },
   computed: {
@@ -45,6 +47,11 @@ export default {
       return this.movies.length
     }
   },
+  methods: {
+    changePage() {  
+      history.pushState(null, null, this.currentPage)
+    }
+  },
   props:{
     actor: String
   }
@@ -54,5 +61,9 @@ export default {
 <style>
 #actormovie {
   margin-bottom: 0px;
+}
+#page-area {
+  margin-right: auto;
+  margin-left: auto;
 }
 </style>

@@ -6,7 +6,7 @@
       v-for="(genre, index) in genres"
       :key="genre.id"
       :id="'g'+index">
-        <router-link :to="{name:'GenreView', params:{genre:genre.name, code:String(genre.id)}}">        
+        <router-link :to="{name:'GenreView', params:{genre:genre.name, code:String(genre.id), page:1}}">        
           {{genre.name}}
         </router-link>
       </div>
