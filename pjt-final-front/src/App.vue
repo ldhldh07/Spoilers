@@ -1,33 +1,48 @@
 <template>
   <div id="app">
     <b-navbar fixed="top" type="dark" id="bar" class="text-nowrap">
+
       <b-navbar-brand id="logo" to="/popular">Spoilers</b-navbar-brand>
+
       <b-navbar-nav>
         <b-nav-item to="/popular">인기</b-nav-item>
         <b-nav-item to="/new">최신</b-nav-item>
         <b-nav-item to="/genre" id="genre-text">장르</b-nav-item>
       </b-navbar-nav>
-      <b-navbar-nav v-if="!isLogIn" class="ms-auto">
+
+      <b-navbar-nav class="ms-auto">
+        <b-form-input placeholder="영화 이름을 입력하세요" @keyup.enter="search" v-model="searchWord"></b-form-input>
+        <font-awesome-icon icon="fa-solid fa-magnifying-glass" id="search" @click="search"/>  
+      </b-navbar-nav>
+      
+
+      <b-navbar-nav v-if="!isLogIn" class="ms-3 me-0">
         <b-nav-item :to="{ name: 'LogInView', query: { next: fromPath } }" >로그인</b-nav-item>
         <b-nav-item :to="{ name: 'SignUpView', query: { next: fromPath } }" >회원가입</b-nav-item>
       </b-navbar-nav>
-      <b-navbar-nav v-else class="ms-auto">
+
+      <b-navbar-nav v-else class="ms-3 me-0">
         <b-nav-item :to="{ name: 'ProfileView', params: { username: this.user?.username } }">
           <font-awesome-icon icon="fa-solid fa-user" />
           {{this.user?.username}}
         </b-nav-item>
         <b-nav-item href="#" @click="logOut">로그아웃</b-nav-item>
       </b-navbar-nav>
+
     </b-navbar>
+
     <b-modal ref="logout" hide-footer hide-header-close title="로그아웃">
       <p class="my-4">성공적으로 로그아웃 되었습니다.</p>
     </b-modal>
+
     <router-view id="content"/>
+
     <font-awesome-icon 
       id="up"
       icon="fa-solid fa-circle-chevron-up"
       @click="scrollinit"
        />
+
   </div>
 </template>
 
@@ -35,6 +50,7 @@
 export default {
   data() {
     return {
+      searchWord: null
     }
   },
   computed: {
@@ -68,6 +84,10 @@ export default {
         left: 0,
         behavior: 'smooth'
       });
+    },
+    search() {
+      this.$router.push({name:'SearchView',params:{keyword:this.searchWord}})
+      this.searchWord=null
     }
   },
 }
@@ -125,6 +145,14 @@ export default {
   color:#d3ac2b !important ;
 }
 
+.navbar-dark .navbar-nav #search{
+  color:#d3ac2b !important;
+  margin-left: 10px;
+  align-self: center;
+  cursor: pointer;
+}
+
+
 #content{
   padding-top: 120px;
 }
@@ -137,5 +165,6 @@ export default {
   height: 30px;
   cursor: pointer;
 }
+
 
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="Actor">
-    <h1> {{actorname}}가 출연한 영화</h1>
+    <h1 id="main"> {{actorname}}가 출연한 영화</h1>
     <ActorMovieList 
       :actor="actor"
     />
@@ -23,3 +23,9 @@ export default {
   }
 }
 </script>
+
+<style>
+#main{
+  font-weight: bold;
+}
+</style>

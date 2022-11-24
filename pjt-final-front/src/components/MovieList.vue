@@ -35,20 +35,29 @@ export default {
   computed: {
     movies() {
       const array = this.$store.state.movies
-      if (this.isNew) {
+      if (this.isNew === 'NEW') {
         const orderedDate = array.sort((a,b) => new Date(b.date_opened) - new Date(a.date_opened))
         return orderedDate.slice((this.currentPage-1)*this.perPage, this.currentPage*this.perPage)
-      } else {
+      } else if (this.isNew === 'POPULAR') {
         const orderedPopularity = array.sort((a,b) => b.popularity - a.popularity)
         return orderedPopularity.slice((this.currentPage-1)*this.perPage, this.currentPage*this.perPage)
+      } else {
+        const searchResult = array.filter(movie => movie.movie_title.includes(this.isNew))
+        return searchResult.slice((this.currentPage-1)*this.perPage, this.currentPage*this.perPage)
       }
     },
     rows() {
-      return this.$store.state.movies.length
+      if (this.isNew === 'NEW') {
+        return this.$store.state.movies.length
+      } else if (this.isNew === 'POPULAR') {
+        return this.$store.state.movies.length
+      } else {
+        return this.movies.length
+      }
     }
   },
   props:{
-    isNew: Boolean,
+    isNew: String,
   },
 }
 </script>

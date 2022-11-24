@@ -70,6 +70,12 @@ const routes = [
     name: 'LogInView',
     component: LogInView
   },
+
+  {
+    path: '/search/:keyword',
+    name: 'SearchView',
+    component: () => import('../views/SearchView.vue')
+  },
 ]
 
 const router = new VueRouter({
